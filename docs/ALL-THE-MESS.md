@@ -17,6 +17,30 @@ Everything that goes wrong and how to fix it. Use this when something breaks.
 
 **Don’t destroy success:** Don’t add `DATABASE_URL` back to Windows. Keep the real connection string only in the project’s `.env.local`.
 
+---
+
+## Git — "Everything up-to-date" on feature branch (commit went to main)
+
+**What happened:** You ran `git add .`, `git commit -m "..."`, then `git push origin feature/step-7-voice-cloudinary` and got **"Everything up-to-date"**. The new commit did **not** go to the feature branch — it was made on **main** (because you were on `main` when you committed).
+
+**Why:** `git push origin feature/step-7-voice-cloudinary` pushes the **local** `feature/step-7-voice-cloudinary` branch. If the commit was made on `main`, that feature branch doesn’t have it, so the push has nothing new to send.
+
+**Fix (choose one):**
+
+1. **Push main** (if you’re fine with the commit on main):
+   ```powershell
+   git push origin main
+   ```
+
+2. **Put the commit on the feature branch and push it:**
+   ```powershell
+   git checkout feature/step-7-voice-cloudinary
+   git merge main
+   git push origin feature/step-7-voice-cloudinary
+   ```
+
+3. **Next time:** If you want the commit on the feature branch, run `git checkout feature/step-7-voice-cloudinary` **before** `git add` / `git commit`.
+
 **Project rules (also in `.cursor/rules/env-and-db.mdc`):**
 1. Always start with: `npm run dev:local`
 2. Never use: `npm run dev` (reads wrong Windows variable)
