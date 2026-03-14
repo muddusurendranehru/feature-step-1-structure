@@ -92,6 +92,39 @@ No `camp_id` in volunteers_donors in this project. Tables are independent.
 
 ---
 
+## Watchpack and ENOENT (Windows dev)
+
+**Watchpack Error (EINVAL: invalid argument, lstat 'C:\\swapfile.sys' / 'C:\\pagefile.sys'):**  
+On Windows, Next.js’s file watcher can try to stat system files at the drive root and fail. This is a known issue; the app still runs. We added `watchOptions.ignored` in `next.config.ts` to reduce these errors. You can ignore any that still appear.
+
+**ENOENT: no such file or directory, open '.next\\server\\app\\…\\page.js':**  
+The dev server’s cache got out of sync (e.g. after a heavy recompile or Watchpack noise). **Fix:** Stop the dev server, delete the `.next` folder, then restart:
+
+```powershell
+Remove-Item -Recurse -Force .next
+npm run dev:local
+```
+
+The first load will be slower; routes like `/education` should then respond 200.
+
+**Error: listen EADDRINUSE: address already in use :::3006**  
+Another process (often a previous dev server) is already using that port. **Fix:** Free the port, then start again.
+
+```powershell
+# Find process using port 3006
+Get-NetTCPConnection -LocalPort 3006 -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique
+
+# Kill it (use the PID from above; ignore 0)
+Stop-Process -Id <PID> -Force
+
+# Then run
+npm run dev:local
+```
+
+Or use a different port: `$env:PORT="3007"; npm run dev:local` and open http://localhost:3007
+
+---
+
 ## test-db.js (local connection test)
 
 - **What:** A script that loads `.env.local` and connects to Neon with `pg`. Confirms DATABASE_URL works.
