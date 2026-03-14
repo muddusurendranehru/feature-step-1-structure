@@ -1,0 +1,13 @@
+# Render preview deployments (placeholder)
+# Uncomment and configure when connecting Render to this repo.
+#
+# name: Render Preview
+# on:
+#   push:
+#     branches: [feature/**]
+# jobs:
+#   deploy-preview:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#       # Add Render preview trigger or notify step here
