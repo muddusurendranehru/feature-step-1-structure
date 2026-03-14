@@ -14,6 +14,26 @@
 
 ---
 
+## Step 6 — What we achieved
+
+- **Admin dashboard at `/admin/dashboard`:** Clerk-protected page that fetches from Neon and shows:
+  - **Medical camps** in responsive cards (date, venue, description, photo count) with placeholder Edit/Delete buttons.
+  - **Volunteers & donors** in a table (name, phone, interest, role, date joined) with placeholder Edit/Delete buttons.
+  - Links to “Volunteers only” (`/admin`) and Home.
+- **Metadata/SEO:** Root `app/layout.tsx` — title template “%s | HOMA Clinics”, description, keywords, openGraph, metadataBase. Admin dashboard layout has its own title and `robots: noindex, nofollow`.
+- **Error boundary:** `app/error.tsx` — custom error UI with “Try again” and “Go home”.
+- **Loading state:** `app/loading.tsx` — root skeleton (pulse + card placeholders).
+- **Health API:** `GET /api/health` returns `{ "status": "ok" }` for monitoring/load balancers.
+- **Image optimization:** Donations page uses Next `<Image>` with `sizes` for QR codes; medical camps page already used `<Image>` with `sizes` for patient camp images.
+- **Windows dev:** `next.config.ts` — `watchOptions.ignored` added to reduce Watchpack EINVAL errors on `pagefile.sys` / `swapfile.sys`. If you see **ENOENT** for a page under `.next\server\app\…`, clear the cache and restart:
+  ```powershell
+  Remove-Item -Recurse -Force .next
+  npm run dev:local
+  ```
+  (See `docs/ALL-THE-MESS.md` → “Watchpack and ENOENT (Windows dev)”.)
+
+---
+
 ## Next steps (empty / to develop)
 
 1. **Medical camps — camp detail page (next iteration)**  
@@ -42,5 +62,7 @@
 - **Run locally:** `npm run dev:local` (see `docs/ALL-THE-MESS.md` for env/DB rules).
 
 ---
+
+**Verified working (don't destroy success):** Step 6 is complete; local dev runs with `cd c:\Users\pc\Desktop\feature-step-1-structure`, `$env:PORT="3006"`, `npm run dev:local` — all pages and APIs return 200 (/, /education, /medical-camps, /donations, /join-us, /admin/dashboard, /api/camps, /api/volunteers, /api/health). Watchpack EINVAL on Windows (C:\DumpStack.log.tmp, pagefile.sys, swapfile.sys, etc.) is harmless; ignore those messages.
 
 *Last updated: March 2026.*

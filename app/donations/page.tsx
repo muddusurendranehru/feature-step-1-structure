@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Hero } from "@/components/Hero";
 import { Card } from "@/components/Card";
 import { DonationsVoiceButton } from "./DonationsVoiceButton";
@@ -31,12 +32,13 @@ export default function DonationsPage() {
         <div className="grid gap-4 py-6 sm:grid-cols-2 lg:grid-cols-4">
           {qrImages.map((qr) => (
             <Card key={qr.alt} className="flex flex-col items-center">
-              <div className="h-32 w-32 bg-gray-100 dark:bg-gray-700">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+              <div className="relative h-32 w-32 bg-gray-100 dark:bg-gray-700">
+                <Image
                   src={qr.src}
                   alt={qr.alt}
-                  className="h-full w-full object-contain"
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 />
               </div>
               <p className="mt-2 text-sm font-medium text-gray-700 dark:text-gray-300">

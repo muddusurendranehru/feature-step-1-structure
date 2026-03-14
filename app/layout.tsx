@@ -4,9 +4,30 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ClientLayout } from "@/components/ClientLayout";
 
 export const metadata: Metadata = {
-  title: "ClinicFranchise Nexus",
+  title: {
+    default: "HOMA Clinics | ClinicFranchise Nexus",
+    template: "%s | HOMA Clinics",
+  },
   description:
-    "Private AI-first medical clinic franchise system (metabolism focus)",
+    "HOMA Clinics — medical camps, doctor training, community health. Volunteer, donate, or join our clinic franchise network.",
+  keywords: [
+    "HOMA Clinics",
+    "medical camp",
+    "clinic franchise",
+    "community health",
+    "doctor training",
+    "donate",
+    "volunteer",
+  ],
+  openGraph: {
+    title: "HOMA Clinics | ClinicFranchise Nexus",
+    description:
+      "Medical camps, doctor training, community health. Volunteer, donate, or join our clinic franchise network.",
+    type: "website",
+  },
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL || "https://homahealthcarecenter.in"
+  ),
 };
 
 export default function RootLayout({
