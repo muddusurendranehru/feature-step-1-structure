@@ -59,9 +59,20 @@ export function MedicalCampsContent() {
     try {
       const photo_urls: string[] = [];
       const maxTotalBytes = 5 * 1024 * 1024; // 5MB total for photos
+      const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
+
+      const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+      const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
       if (files?.length) {
+        if (!cloudName || !uploadPreset) {
+          setMessage({
+            type: "err",
+            text: "Photo upload is not configured (Cloudinary).",
+          });
+          setSubmitting(false);
+          return;
+        }
         let totalSize = 0;
-        const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
         for (let i = 0; i < files.length; i++) {
           totalSize += files[i].size;
         }
@@ -80,12 +91,25 @@ export function MedicalCampsContent() {
             setSubmitting(false);
             return;
           }
-          const reader = new FileReader();
-          const dataUrl = await new Promise<string>((res) => {
-            reader.onload = () => res(reader.result as string);
-            reader.readAsDataURL(file);
-          });
-          photo_urls.push(dataUrl);
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("upload_preset", uploadPreset);
+          const uploadRes = await fetch(
+            `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+            { method: "POST", body: formData }
+          );
+          const uploadData = await uploadRes.json().catch(() => ({}));
+          const secureUrl = uploadData.secure_url;
+          if (uploadRes.ok && typeof secureUrl === "string") {
+            photo_urls.push(secureUrl);
+          } else {
+            setMessage({
+              type: "err",
+              text: uploadData.error?.message || "Photo upload failed. Try again.",
+            });
+            setSubmitting(false);
+            return;
+          }
         }
       }
       const res = await fetch("/api/camps", {
@@ -166,7 +190,7 @@ export function MedicalCampsContent() {
                 className="rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600"
               />
               <span className="text-xs text-gray-500 dark:text-gray-400">
-                PNG or JPG only. Use smaller files (e.g. under 1MB each) to avoid errors. Stored with the camp (not in public folder).
+                PNG or JPG only. Uploaded to Cloudinary; URLs saved with the camp.
               </span>
             </label>
             {message && (
@@ -233,20 +257,21 @@ export function MedicalCampsContent() {
                   {camp.photo_urls.slice(0, 6).map((url, i) => (
                     <div
                       key={i}
-                      className="h-16 w-16 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700"
+                      className="relative h-16 w-16 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700"
                     >
-                      {url.startsWith("data:") ? (
+                      {url.startsWith("https://res.cloudinary.com") ? (
+                        <Image
+                          src={url}
+                          alt=""
+                          fill
+                          className="object-cover"
+                          sizes="96px"
+                        />
+                      ) : (
                         <img
                           src={url}
                           alt=""
                           className="h-full w-full object-cover"
-                        />
-                      ) : (
-                        <a
-                          href={url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block h-full w-full bg-gray-200"
                         />
                       )}
                     </div>
