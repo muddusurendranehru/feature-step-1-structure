@@ -73,7 +73,7 @@ export function NavBar() {
             <UserButton afterSignOutUrl="/" />
           </SignedIn>
           <Link
-            href="/#enroll"
+            href="/enroll"
             className="inline-flex items-center justify-center rounded-xl font-medium px-4 py-2.5 sm:px-5 sm:py-3 bg-primary hover:bg-primary-dark text-white shadow-sm transition-colors"
           >
             Enroll Now
@@ -159,7 +159,7 @@ export function NavBar() {
                 </div>
               </SignedIn>
               <Link
-                href="/#enroll"
+                href="/enroll"
                 onClick={() => setMobileOpen(false)}
                 className="inline-flex w-full items-center justify-center rounded-xl bg-primary hover:bg-primary-dark text-white font-medium px-4 py-2.5 shadow-sm transition-colors"
               >

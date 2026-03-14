@@ -72,6 +72,11 @@
 - Ready in 2.7s; middleware and routes compile on first hit.
 - `POST /api/elevenlabs` 200 in ~3.8s — voice widget (Ask AI → type → hear reply) working.
 
+**Achieved now (for Grok):**
+- Doctor Training, Education, Community, Investors, Content Studio — all five pages have full content (hero, cards, CTAs/links; LOI & Investor Deck PDF links; Coming Soon where noted).
+- Doctor Training: 3-month certificate, 4 modules, LOI download. Education: CME workshops, Register Interest. Community: View Past Camps → /medical-camps, Donate Now → /donations.
+- Investors: Seed funding, Why Invest (3 cards), Investor Deck PDF, Express Interest (Coming Soon). Content Studio: Grok/AI infographics, video prompts, SEO blog (Coming Soon).
+
 **What this log is for (for Grok):** This is the normal dev-server output when the app is healthy. "✓ Ready" means Next.js is serving; "✓ Compiled /route" means that route was built on first request; "GET /route 200" means the page or API responded successfully. Use it to confirm the app runs and which routes were hit. The Watchpack EINVAL lines are Windows file-watcher noise (C:\ system files); they do not affect the app and can be ignored.
 
 *Last updated: March 2026.*
