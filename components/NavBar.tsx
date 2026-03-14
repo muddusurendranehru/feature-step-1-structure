@@ -2,6 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 
 const navLinks = [
   { label: "Education", href: "/education" },
@@ -9,10 +17,15 @@ const navLinks = [
   { label: "Investors", href: "/investors" },
   { label: "Content Studio", href: "/content-studio" },
   { label: "Doctor Training", href: "/doctor-training" },
+  { label: "Medical Camps", href: "/medical-camps" },
+  { label: "Donations", href: "/donations" },
+  { label: "Join us", href: "/join-us" },
 ];
 
 export function NavBar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+  const redirectUrl = pathname && pathname !== "/" ? pathname : "/medical-camps";
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 shadow-sm backdrop-blur-md dark:bg-gray-900/80">
@@ -37,7 +50,28 @@ export function NavBar() {
           ))}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-3">
+          <SignedOut>
+            <SignInButton mode="modal" forceRedirectUrl={redirectUrl}>
+              <button
+                type="button"
+                className="rounded-lg border border-primary px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10"
+              >
+                Sign in
+              </button>
+            </SignInButton>
+            <SignUpButton mode="modal" forceRedirectUrl={redirectUrl}>
+              <button
+                type="button"
+                className="inline-flex items-center justify-center rounded-xl font-medium px-4 py-2.5 bg-primary hover:bg-primary-dark text-white shadow-sm transition-colors"
+              >
+                Sign up
+              </button>
+            </SignUpButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
           <Link
             href="/#enroll"
             className="inline-flex items-center justify-center rounded-xl font-medium px-4 py-2.5 sm:px-5 sm:py-3 bg-primary hover:bg-primary-dark text-white shadow-sm transition-colors"
@@ -98,7 +132,32 @@ export function NavBar() {
                 </Link>
               </li>
             ))}
-            <li className="mt-2 pt-2 border-t border-gray-200 dark:border-gray-700">
+            <li className="mt-2 pt-2 border-t border-gray-200 dark:border-gray-700 flex flex-col gap-2">
+              <SignedOut>
+                <SignInButton mode="modal" forceRedirectUrl={redirectUrl}>
+                  <button
+                    type="button"
+                    onClick={() => setMobileOpen(false)}
+                    className="w-full rounded-lg border border-primary px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10"
+                  >
+                    Sign in
+                  </button>
+                </SignInButton>
+                <SignUpButton mode="modal" forceRedirectUrl={redirectUrl}>
+                  <button
+                    type="button"
+                    onClick={() => setMobileOpen(false)}
+                    className="w-full rounded-xl bg-primary hover:bg-primary-dark text-white font-medium px-4 py-2.5"
+                  >
+                    Sign up
+                  </button>
+                </SignUpButton>
+              </SignedOut>
+              <SignedIn>
+                <div className="flex justify-center">
+                  <UserButton afterSignOutUrl="/" />
+                </div>
+              </SignedIn>
               <Link
                 href="/#enroll"
                 onClick={() => setMobileOpen(false)}

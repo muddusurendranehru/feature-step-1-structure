@@ -1,14 +1,20 @@
+import Link from "next/link";
 import { Button } from "./Button";
 
 interface HeroProps {
   headline?: string;
   ctaLabel?: string;
+  ctaHref?: string;
   onCtaClick?: () => void;
 }
+
+const ctaButtonClass =
+  "inline-flex items-center justify-center rounded-xl font-medium px-4 py-2.5 sm:px-5 sm:py-3 bg-primary hover:bg-primary-dark text-white shadow-sm transition-colors";
 
 export function Hero({
   headline = "Welcome",
   ctaLabel = "Get started",
+  ctaHref,
   onCtaClick,
 }: HeroProps) {
   return (
@@ -19,7 +25,13 @@ export function Hero({
         </h1>
         {ctaLabel && (
           <div className="mt-6 sm:mt-8">
-            <Button onClick={onCtaClick}>{ctaLabel}</Button>
+            {ctaHref ? (
+              <Link href={ctaHref} className={ctaButtonClass}>
+                {ctaLabel}
+              </Link>
+            ) : (
+              <Button onClick={onCtaClick}>{ctaLabel}</Button>
+            )}
           </div>
         )}
       </div>

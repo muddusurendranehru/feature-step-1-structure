@@ -6,6 +6,9 @@ const quickLinks = [
   { label: "Investors", href: "/investors" },
   { label: "Content Studio", href: "/content-studio" },
   { label: "Doctor Training", href: "/doctor-training" },
+  { label: "Medical Camps", href: "/medical-camps" },
+  { label: "Donations", href: "/donations" },
+  { label: "Join us", href: "/join-us" },
 ];
 
 export function Footer() {
@@ -40,10 +43,10 @@ export function Footer() {
             <ul className="mt-4 flex flex-col gap-2">
               <li>
                 <a
-                  href="mailto:contact@example.com"
+                  href="mailto:surendra.muddu@gmail.com"
                   className="hover:text-primary transition-colors"
                 >
-                  contact@example.com
+                  surendra.muddu@gmail.com
                 </a>
               </li>
               <li>

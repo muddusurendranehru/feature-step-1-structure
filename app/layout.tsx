@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { NavBar } from "@/components/NavBar";
-import { Footer } from "@/components/Footer";
+import { ClerkProvider } from "@clerk/nextjs";
+import { ClientLayout } from "@/components/ClientLayout";
 
 export const metadata: Metadata = {
   title: "ClinicFranchise Nexus",
@@ -15,11 +15,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
       <body className="flex min-h-screen flex-col">
-        <NavBar />
-        <main className="flex-1 pt-16">{children}</main>
-        <Footer />
+        <ClerkProvider>
+          <ClientLayout>{children}</ClientLayout>
+        </ClerkProvider>
       </body>
     </html>
   );

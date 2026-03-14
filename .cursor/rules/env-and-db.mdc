@@ -1,0 +1,12 @@
+---
+description: Dev server and database roles — always dev:local, never npm run dev, never neondb_owner
+alwaysApply: true
+---
+
+# Dev server and database rules
+
+1. **Always start with:** `npm run dev:local`
+2. **Never use:** `npm run dev` (reads wrong Windows variable)
+3. **Never touch:** `neondb_owner` (that's your diet plan)
+
+Also: never commit `.env.local`; ClinicFlow = `myapp_user` in `.env.local`; never set `DATABASE_URL` in Windows env.
