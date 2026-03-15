@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextResponse } from "next/server";
 
 const ELEVENLABS_STT_URL = "https://api.elevenlabs.io/v1/speech-to-text";

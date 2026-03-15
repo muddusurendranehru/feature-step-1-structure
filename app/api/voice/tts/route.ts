@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextResponse } from "next/server";
 
 const DEFAULT_VOICE_ID = "JBFqnCBsd6RMkjVDRZzb";
