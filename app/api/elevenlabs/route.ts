@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
+import { sql } from "@/lib/neon";
 
-const SYSTEM_PROMPT = `You are Ranbir, a helpful voice assistant for HOMA Health Care Center, Gachibowli, Hyderabad.
+const SYSTEM_PROMPT_BASE = `You are Ranbir, a helpful voice assistant for HOMA Health Care Center, Gachibowli, Hyderabad.
 
 CLINIC DETAILS:
 - Full Name: Homa Health Care Center
@@ -103,6 +104,31 @@ export async function POST(request: Request) {
       );
     }
 
+    let systemPrompt = SYSTEM_PROMPT_BASE;
+    if (process.env.DATABASE_URL) {
+      try {
+        const rows = await sql`SELECT key, value FROM voice_settings`;
+        const map = new Map<string, string>();
+        for (const r of rows as Array<{ key: string; value: string }>) {
+          map.set(r.key, r.value ?? "");
+        }
+        const timings = map.get("timings")?.trim();
+        const contact = map.get("contact")?.trim();
+        const homaTest = map.get("homa_test")?.trim();
+        const announcement = map.get("announcement")?.trim();
+        if (timings || contact || homaTest || announcement) {
+          const parts: string[] = ["\n\nCURRENT CLINIC SETTINGS (use these when relevant):"];
+          if (timings) parts.push(`- Timings: ${timings}`);
+          if (contact) parts.push(`- Contact: ${contact}`);
+          if (homaTest) parts.push(`- HOMA test info: ${homaTest}`);
+          if (announcement) parts.push(`- Today's announcement: ${announcement}`);
+          systemPrompt = SYSTEM_PROMPT_BASE + parts.join("\n");
+        }
+      } catch {
+        // keep base prompt if DB read fails
+      }
+    }
+
     let replyText: string;
     const openaiKey = process.env.OPENAI_API_KEY;
     if (openaiKey) {
@@ -115,7 +141,7 @@ export async function POST(request: Request) {
         body: JSON.stringify({
           model: "gpt-4o-mini",
           messages: [
-            { role: "system", content: SYSTEM_PROMPT },
+            { role: "system", content: systemPrompt },
             { role: "user", content: userMessage },
           ],
           max_tokens: 300,
