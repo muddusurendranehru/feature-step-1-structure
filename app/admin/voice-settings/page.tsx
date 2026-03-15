@@ -122,7 +122,7 @@ export default function AdminVoiceSettingsPage() {
                     value={timings}
                     onChange={(e) => setTimings(e.target.value)}
                     rows={2}
-                    className="rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                    className="min-h-[80px] w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                   />
                 </label>
                 <label className="flex flex-col gap-1">
@@ -133,7 +133,7 @@ export default function AdminVoiceSettingsPage() {
                     value={contact}
                     onChange={(e) => setContact(e.target.value)}
                     rows={2}
-                    className="rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                    className="min-h-[80px] w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                   />
                 </label>
                 <label className="flex flex-col gap-1">
@@ -144,7 +144,7 @@ export default function AdminVoiceSettingsPage() {
                     value={homaTest}
                     onChange={(e) => setHomaTest(e.target.value)}
                     rows={3}
-                    className="rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                    className="min-h-[80px] w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                   />
                 </label>
                 <label className="flex flex-col gap-1">
@@ -155,7 +155,7 @@ export default function AdminVoiceSettingsPage() {
                     value={announcement}
                     onChange={(e) => setAnnouncement(e.target.value)}
                     rows={2}
-                    className="rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                    className="min-h-[80px] w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                   />
                 </label>
                 {message && (
@@ -169,7 +169,7 @@ export default function AdminVoiceSettingsPage() {
                     {message.text}
                   </p>
                 )}
-                <Button type="submit" disabled={saving}>
+                <Button type="submit" disabled={saving} className="min-h-[48px] w-full">
                   {saving ? "Saving…" : "Save"}
                 </Button>
               </form>

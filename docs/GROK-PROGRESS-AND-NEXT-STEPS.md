@@ -19,6 +19,8 @@ All core pages and major features are live and tested locally. GitHub repo (main
 * ✅ Contact page (/contact — phone/email, quick actions, business inquiry mailto, linked from Partnerships & others)
 * ✅ Footer + navbar updated (legal links, contact info, Partnerships, Contact added)
 * ✅ GitHub current (main pushed) — all commits merged, no pending branches, auto-deploy to Render possible
+* ✅ Apps page (/apps) — “HOMA Ecosystem — All Apps”, Patient Tools (Health Metrics, Nutrition Bot, PCOS HOMA Score, OCR Lab Reports), Doctor Tools (Drug Trials, Dr. Muddu MVP), Coming Soon (Exercise DB, Patient Portal, WhatsApp Bot). All open in new tab. Apps link in NavBar + Footer.
+* Dr. Muddu MVP (Main Clinic Site) = separate Render app: Gachibowli clinic, metabolic calculators (HOMA-IR, TyG), 09963721999, JOIN • DONATE • FRANCHISE. Linked from /apps as “Full clinic website with calculators, blog, assessments”.
 
 **Next priorities (choose one):**
 1. Real ElevenLabs voice modal polish (TTS/STT, chat UI, error handling)

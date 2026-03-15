@@ -158,7 +158,7 @@ export function MedicalCampsContent() {
                 required
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                className="min-h-[48px] w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
               />
             </label>
             <label className="flex flex-col gap-1">
@@ -168,7 +168,7 @@ export function MedicalCampsContent() {
                 required
                 value={venue}
                 onChange={(e) => setVenue(e.target.value)}
-                className="rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                className="min-h-[48px] w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
               />
             </label>
             <label className="flex flex-col gap-1">
@@ -177,7 +177,7 @@ export function MedicalCampsContent() {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={3}
-                className="rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                className="min-h-[80px] w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
               />
             </label>
             <label className="flex flex-col gap-1">
@@ -187,7 +187,7 @@ export function MedicalCampsContent() {
                 accept="image/png,image/jpeg,image/jpg"
                 multiple
                 onChange={(e) => setFiles(e.target.files)}
-                className="rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600"
+                className="min-h-[48px] w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600"
               />
               <span className="text-xs text-gray-500 dark:text-gray-400">
                 PNG or JPG only. Uploaded to Cloudinary; URLs saved with the camp.
@@ -204,7 +204,7 @@ export function MedicalCampsContent() {
                 {message.text}
               </p>
             )}
-            <Button type="submit" disabled={submitting}>
+            <Button type="submit" disabled={submitting} className="min-h-[48px] w-full">
               {submitting ? "Saving…" : "Save camp"}
             </Button>
           </form>

@@ -75,7 +75,7 @@ export function VolunteerForm() {
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="min-h-[48px] w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           />
         </label>
         <label className="flex flex-col gap-1">
@@ -85,7 +85,7 @@ export function VolunteerForm() {
             required
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="min-h-[48px] w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           />
         </label>
         <label className="flex flex-col gap-1">
@@ -95,7 +95,7 @@ export function VolunteerForm() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="min-h-[48px] w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           />
         </label>
         <label className="flex flex-col gap-1">
@@ -104,7 +104,7 @@ export function VolunteerForm() {
             required
             value={interest}
             onChange={(e) => setInterest(e.target.value)}
-            className="rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="min-h-[48px] w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
             <option value="">Select</option>
             {INTERESTS.map((i) => (
@@ -120,7 +120,7 @@ export function VolunteerForm() {
             required
             value={role}
             onChange={(e) => setRole(e.target.value)}
-            className="rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="min-h-[48px] w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
             <option value="">Select</option>
             {ROLES.map((r) => (
@@ -130,7 +130,7 @@ export function VolunteerForm() {
             ))}
           </select>
         </label>
-        <Button type="submit" disabled={submitting}>
+        <Button type="submit" disabled={submitting} className="min-h-[48px] w-full">
           {submitting ? "Submitting…" : "Submit"}
         </Button>
       </form>

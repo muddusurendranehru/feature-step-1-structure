@@ -19,7 +19,7 @@ export default function ContactPage() {
       {/* Hero */}
       <section className="bg-primary px-4 py-16 text-center text-white">
         <div className="mx-auto max-w-4xl">
-          <h1 className="mb-6 text-4xl font-bold md:text-5xl">
+          <h1 className="mb-6 text-3xl font-bold sm:text-4xl md:text-5xl">
             Get in Touch with HOMA Clinics
           </h1>
           <p className="mb-8 text-xl opacity-90 md:text-2xl">

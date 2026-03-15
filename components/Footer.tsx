@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const quickLinks = [
+  { label: "Apps", href: "/apps" },
   { label: "Education", href: "/education" },
   { label: "Community", href: "/community" },
   { label: "Partnerships", href: "/partnerships" },
@@ -22,7 +23,7 @@ const legalLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-gray-900 py-12 text-gray-300 dark:bg-black">
+    <footer className="bg-gray-900 py-12 text-gray-300 sm:py-16 dark:bg-black">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {/* Quick Links */}
@@ -30,7 +31,7 @@ export function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
               Quick Links
             </h3>
-            <ul className="mt-4 flex flex-col gap-2">
+            <ul className="mt-4 flex flex-col gap-3 sm:gap-2">
               {quickLinks.map(({ label, href }) => (
                 <li key={href}>
                   <Link
@@ -49,11 +50,11 @@ export function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
               Contact
             </h3>
-            <ul className="mt-4 flex flex-col gap-2">
+            <ul className="mt-4 flex flex-col gap-3 sm:gap-2">
               <li>
                 <a
                   href="mailto:surendra.muddu@gmail.com"
-                  className="hover:text-primary transition-colors"
+                  className="inline-block min-h-[44px] py-2 hover:text-primary transition-colors sm:min-h-0 sm:py-0"
                 >
                   surendra.muddu@gmail.com
                 </a>
@@ -61,7 +62,7 @@ export function Footer() {
               <li>
                 <a
                   href="tel:+919963721999"
-                  className="hover:text-primary transition-colors"
+                  className="inline-block min-h-[44px] py-2 hover:text-primary transition-colors sm:min-h-0 sm:py-0"
                 >
                   +91 9963721999
                 </a>
@@ -74,7 +75,7 @@ export function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
               Legal
             </h3>
-            <ul className="mt-4 flex flex-col gap-2">
+            <ul className="mt-4 flex flex-col gap-3 sm:gap-2">
               {legalLinks.map(({ label, href }) => (
                 <li key={href}>
                   <Link

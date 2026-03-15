@@ -12,6 +12,7 @@ import {
 } from "@clerk/nextjs";
 
 const navLinks = [
+  { label: "Apps", href: "/apps" },
   { label: "Education", href: "/education" },
   { label: "Community", href: "/community" },
   { label: "Partnerships", href: "/partnerships" },
@@ -84,7 +85,7 @@ export function NavBar() {
         {/* Mobile hamburger */}
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-primary/10 hover:text-primary dark:text-gray-300 md:hidden"
+          className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-gray-700 hover:bg-primary/10 hover:text-primary dark:text-gray-300 md:hidden"
           aria-label="Toggle menu"
           onClick={() => setMobileOpen((prev) => !prev)}
         >
@@ -120,26 +121,26 @@ export function NavBar() {
           mobileOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <nav className="border-t border-gray-200 bg-white/95 px-4 py-4 backdrop-blur-md dark:border-gray-700 dark:bg-gray-900/95">
-          <ul className="flex flex-col gap-1">
+        <nav className="min-w-[280px] border-t border-gray-200 bg-white/95 px-4 py-4 backdrop-blur-md dark:border-gray-700 dark:bg-gray-900/95">
+          <ul className="flex flex-col gap-4">
             {navLinks.map(({ label, href }) => (
               <li key={href}>
                 <Link
                   href={href}
-                  className="block rounded-md px-3 py-2 text-gray-700 hover:bg-primary/10 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
+                  className="flex min-h-[44px] items-center rounded-md px-3 py-3 text-gray-700 hover:bg-primary/10 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
                   onClick={() => setMobileOpen(false)}
                 >
                   {label}
                 </Link>
               </li>
             ))}
-            <li className="mt-2 pt-2 border-t border-gray-200 dark:border-gray-700 flex flex-col gap-2">
+            <li className="mt-4 flex flex-col gap-4 border-t border-gray-200 pt-4 dark:border-gray-700">
               <SignedOut>
                 <SignInButton mode="modal" forceRedirectUrl={redirectUrl}>
                   <button
                     type="button"
                     onClick={() => setMobileOpen(false)}
-                    className="w-full rounded-lg border border-primary px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10"
+                    className="flex min-h-[48px] w-full items-center justify-center rounded-lg border border-primary px-4 py-3 text-sm font-medium text-primary hover:bg-primary/10"
                   >
                     Sign in
                   </button>
@@ -148,7 +149,7 @@ export function NavBar() {
                   <button
                     type="button"
                     onClick={() => setMobileOpen(false)}
-                    className="w-full rounded-xl bg-primary hover:bg-primary-dark text-white font-medium px-4 py-2.5"
+                    className="flex min-h-[48px] w-full items-center justify-center rounded-xl bg-primary px-4 py-3 font-medium text-white hover:bg-primary-dark"
                   >
                     Sign up
                   </button>
@@ -162,7 +163,7 @@ export function NavBar() {
               <Link
                 href="/enroll"
                 onClick={() => setMobileOpen(false)}
-                className="inline-flex w-full items-center justify-center rounded-xl bg-primary hover:bg-primary-dark text-white font-medium px-4 py-2.5 shadow-sm transition-colors"
+                className="flex min-h-[48px] w-full items-center justify-center rounded-xl bg-primary px-4 py-3 font-medium text-white shadow-sm transition-colors hover:bg-primary-dark"
               >
                 Enroll Now
               </Link>
