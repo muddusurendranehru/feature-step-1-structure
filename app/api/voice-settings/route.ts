@@ -1,8 +1,8 @@
 export const dynamic = "force-dynamic";
 
+import { neon } from "@neondatabase/serverless";
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import { sql } from "@/lib/neon";
 
 const KEYS = ["timings", "contact", "homa_test", "announcement"] as const;
 
@@ -14,6 +14,7 @@ export async function GET() {
         { status: 503 }
       );
     }
+    const sql = neon(process.env.DATABASE_URL);
     const rows = await sql`
       SELECT key, value FROM voice_settings
     `;
@@ -50,6 +51,7 @@ export async function POST(request: Request) {
         { status: 503 }
       );
     }
+    const sql = neon(process.env.DATABASE_URL);
     const body = (await request.json()) as Record<string, unknown>;
     const timings = String(body.timings ?? "").trim();
     const contact = String(body.contact ?? "").trim();

@@ -1,8 +1,8 @@
 export const dynamic = "force-dynamic";
 
+import { neon } from "@neondatabase/serverless";
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import { sql } from "@/lib/neon";
 
 export async function GET() {
   try {
@@ -12,6 +12,7 @@ export async function GET() {
         { status: 503 }
       );
     }
+    const sql = neon(process.env.DATABASE_URL);
     const rows = await sql`
       SELECT id, date, venue, description, photo_urls, created_at
       FROM medical_camps
@@ -46,6 +47,7 @@ export async function POST(request: Request) {
         { status: 503 }
       );
     }
+    const sql = neon(process.env.DATABASE_URL);
     const body = await request.json();
     const { date, venue, description, photo_urls } = body as {
       date: string;

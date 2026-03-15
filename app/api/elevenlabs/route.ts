@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
+import { neon } from "@neondatabase/serverless";
 import { NextResponse } from "next/server";
-import { sql } from "@/lib/neon";
 
 const SYSTEM_PROMPT_BASE = `You are Ranbir,
 friendly voice assistant for HOMA Clinics.
@@ -140,6 +140,7 @@ export async function POST(request: Request) {
     let systemPrompt = SYSTEM_PROMPT_BASE;
     if (process.env.DATABASE_URL) {
       try {
+        const sql = neon(process.env.DATABASE_URL);
         const rows = await sql`SELECT key, value FROM voice_settings`;
         const map = new Map<string, string>();
         for (const r of rows as Array<{ key: string; value: string }>) {
