@@ -6,7 +6,7 @@ export default function TermsOfServicePage() {
       <section className="bg-primary px-4 py-12 text-center text-white">
         <div className="mx-auto max-w-4xl">
           <h1 className="mb-3 text-3xl font-bold md:text-4xl">Terms of Service</h1>
-          <p className="text-lg opacity-90">Homa Health Care Center</p>
+          <p className="text-lg opacity-90">HOMA Healthcare Center</p>
         </div>
       </section>
 

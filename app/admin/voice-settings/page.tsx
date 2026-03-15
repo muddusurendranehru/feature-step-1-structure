@@ -52,7 +52,7 @@ export default function AdminVoiceSettingsPage() {
         });
         return;
       }
-      setMessage({ type: "ok", text: "Voice settings saved. Ask AI will use the latest info." });
+      setMessage({ type: "ok", text: "Voice settings saved. Ask HOMA will use the latest info." });
     } catch (err) {
       setMessage({
         type: "err",
@@ -108,7 +108,7 @@ export default function AdminVoiceSettingsPage() {
 
           <Card>
             <p className="mb-6 text-sm text-gray-600 dark:text-gray-400">
-              These values are used by the Ask AI voice assistant (Ranbir). Keep them short and clear.
+              These values are used by the Ask HOMA voice assistant (Ranbir). Keep them short and clear.
             </p>
             {loading ? (
               <div className="h-64 animate-pulse rounded-lg bg-gray-100 dark:bg-gray-800" />

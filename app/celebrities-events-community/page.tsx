@@ -40,7 +40,7 @@ export default function CelebritiesEventsCommunityPage() {
             <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg overflow-hidden">
               <div className="relative h-48 md:h-56">
                 <BlogCardImage
-                  src="/blog/camp-%20(1).jpg"
+                  src="/blog/infographic-%20(1).jpg"
                   alt="Free Diabetes Camp"
                   className="object-cover object-top"
                 />
@@ -68,7 +68,7 @@ export default function CelebritiesEventsCommunityPage() {
             <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg overflow-hidden">
               <div className="relative h-48 md:h-56">
                 <BlogCardImage
-                  src="/blog/camp-%20(2).png"
+                  src="/blog/infographic-%20(4).jpg"
                   alt="Quarterly CME Workshop"
                   className="object-cover object-top"
                 />

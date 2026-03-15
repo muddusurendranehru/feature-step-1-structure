@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const quickLinks = [
+  { label: "About", href: "/about" },
   { label: "Apps", href: "/apps" },
   { label: "Blog", href: "/blog" },
   { label: "Celebrities & Events", href: "/celebrities-events-community" },
@@ -94,7 +95,7 @@ export function Footer() {
 
         <div className="mt-8 border-t border-gray-800 pt-6 dark:border-gray-900">
           <p className="text-center text-sm text-gray-500">
-            Dr. M. Surendra Nehru, MD • Homa Health Care Center • Plot 140, Vinayak Nagar, Gachibowli, Hyderabad • Registration valid until October 2028
+            Dr. M. Surendra Nehru, MD • HOMA Healthcare Center • Plot 140, Vinayak Nagar, Gachibowli, Hyderabad • Registration valid until October 2028
           </p>
         </div>
         <div className="mt-4 border-t border-gray-800 pt-6 dark:border-gray-900">

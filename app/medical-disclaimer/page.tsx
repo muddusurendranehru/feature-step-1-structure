@@ -6,7 +6,7 @@ export default function MedicalDisclaimerPage() {
       <section className="bg-primary px-4 py-12 text-center text-white">
         <div className="mx-auto max-w-4xl">
           <h1 className="mb-3 text-3xl font-bold md:text-4xl">Medical Disclaimer</h1>
-          <p className="text-lg opacity-90">Homa Health Care Center</p>
+          <p className="text-lg opacity-90">HOMA Healthcare Center</p>
         </div>
       </section>
 
@@ -33,7 +33,7 @@ export default function MedicalDisclaimerPage() {
           <div>
             <h2 className="mb-3 text-xl font-bold text-primary">Emergency</h2>
             <p className="text-gray-700 dark:text-gray-300">
-              In case of a medical emergency, call <strong>108</strong> (India emergency number) or go to the nearest hospital immediately. This website and the Ask AI assistant are not for emergency use.
+              In case of a medical emergency, call <strong>108</strong> (India emergency number) or go to the nearest hospital immediately. This website and the Ask HOMA assistant are not for emergency use.
             </p>
           </div>
         </div>

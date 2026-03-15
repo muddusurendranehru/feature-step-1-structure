@@ -6,7 +6,7 @@ export default function FranchiseAgreementPage() {
       <section className="bg-primary px-4 py-12 text-center text-white">
         <div className="mx-auto max-w-4xl">
           <h1 className="mb-3 text-3xl font-bold md:text-4xl">Franchise Agreement</h1>
-          <p className="text-lg opacity-90">Homa Health Care Center</p>
+          <p className="text-lg opacity-90">HOMA Healthcare Center</p>
         </div>
       </section>
 
@@ -28,7 +28,7 @@ export default function FranchiseAgreementPage() {
           <div>
             <h2 className="mb-3 text-xl font-bold text-primary">60% revenue share</h2>
             <p className="text-gray-700 dark:text-gray-300">
-              Under the franchise model, 60% of relevant revenue is shared with the franchisor (Homa Health Care Center / Dr. M. Surendra Nehru) as per the signed agreement. Exact revenue streams and calculation methods are defined in the full franchise agreement.
+              Under the franchise model, 60% of relevant revenue is shared with the franchisor (HOMA Healthcare Center / Dr. M. Surendra Nehru) as per the signed agreement. Exact revenue streams and calculation methods are defined in the full franchise agreement.
             </p>
           </div>
           <div>
@@ -40,7 +40,7 @@ export default function FranchiseAgreementPage() {
           <div>
             <h2 className="mb-3 text-xl font-bold text-primary">Training obligations</h2>
             <p className="text-gray-700 dark:text-gray-300">
-              Franchisees are required to complete training as specified by Homa Health Care Center, including protocols for HOMA-based care, clinic operations, and brand standards. Training obligations and timelines are set out in the franchise agreement.
+              Franchisees are required to complete training as specified by HOMA Healthcare Center, including protocols for HOMA-based care, clinic operations, and brand standards. Training obligations and timelines are set out in the franchise agreement.
             </p>
           </div>
         </div>

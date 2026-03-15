@@ -53,7 +53,7 @@ export function MedicalCampsContent() {
     setSubmitting(true);
     try {
       const photo_urls: string[] = [];
-      const maxTotalBytes = 5 * 1024 * 1024; // 5MB total for photos
+      const maxTotalBytes = 15 * 1024 * 1024; // 15MB total for photos
       const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
 
       const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
@@ -74,7 +74,7 @@ export function MedicalCampsContent() {
         if (totalSize > maxTotalBytes) {
           setMessage({
             type: "err",
-            text: "Total photo size too large. Use smaller images or fewer files (under 5MB total).",
+            text: "Total photo size too large. Use smaller images or fewer files (under 15MB total).",
           });
           setSubmitting(false);
           return;
@@ -185,7 +185,7 @@ export function MedicalCampsContent() {
                 className="min-h-[48px] w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600"
               />
               <span className="text-xs text-gray-500 dark:text-gray-400">
-                PNG or JPG only. Uploaded to Cloudinary; URLs saved with the camp.
+                PNG or JPG only, up to 15MB total. Uploaded to Cloudinary; URLs saved with the camp.
               </span>
             </label>
             {message && (

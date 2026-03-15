@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const buttonBase =
@@ -25,6 +26,34 @@ export default function DoctorTrainingPage() {
           >
             View Curriculum
           </Link>
+        </div>
+      </section>
+
+      {/* Led by – Doctor image */}
+      <section className="border-b border-primary/10 bg-white px-4 py-12 dark:bg-gray-900 dark:border-primary/20">
+        <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 sm:flex-row sm:items-start sm:gap-10">
+          <div className="relative h-56 w-56 shrink-0 overflow-hidden rounded-2xl border-2 border-primary/20 bg-primary/5 ring-2 ring-primary/10 sm:h-64 sm:w-64">
+            <Image
+              src="/blog/drmuddusmvp.png"
+              alt="Dr. Muddu Surendra Nehru MD – Professor of Medicine, Founder HOMA Healthcare Center"
+              fill
+              className="object-cover object-top"
+              sizes="(max-width: 640px) 224px, 256px"
+              priority
+            />
+          </div>
+          <div className="text-center sm:text-left">
+            <h2 className="mb-2 text-2xl font-bold text-primary">Led by your instructor</h2>
+            <p className="mb-1 text-xl font-semibold text-gray-900 dark:text-white">
+              Dr. Muddu Surendra Nehru MD
+            </p>
+            <p className="mb-3 text-gray-600 dark:text-gray-400">
+              Professor of Medicine • Senior Physician • Founder, HOMA Health Care Hyderabad
+            </p>
+            <p className="text-gray-700 dark:text-gray-300">
+              30+ years in preventive medicine. Pioneer in metabolism testing, insulin resistance protocols, and AI-driven care. Trusted by 1,200+ doctors and 10,000+ patients.
+            </p>
+          </div>
         </div>
       </section>
 

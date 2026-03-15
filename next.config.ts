@@ -3,6 +3,10 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: path.join(process.cwd()),
+  eslint: {
+    // Avoid "Invalid Options: useEslintrc, extensions" when Next invokes ESLint (ESLint 9 compat)
+    ignoreDuringBuilds: true,
+  },
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [

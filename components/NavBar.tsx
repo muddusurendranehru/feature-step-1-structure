@@ -12,15 +12,11 @@ import {
 } from "@clerk/nextjs";
 
 const navLinks = [
+  { label: "About", href: "/about" },
   { label: "Apps", href: "/apps" },
-  { label: "Blog", href: "/blog" },
-  { label: "Celebrities & Events", href: "/celebrities-events-community" },
   { label: "Education", href: "/education" },
   { label: "Community", href: "/community" },
-  { label: "Partnerships", href: "/partnerships" },
   { label: "Investors", href: "/investors" },
-  { label: "Content Studio", href: "/content-studio" },
-  { label: "Doctor Training", href: "/doctor-training" },
   { label: "Medical Camps", href: "/medical-camps" },
   { label: "Donations", href: "/donations" },
   { label: "Join us", href: "/join-us" },

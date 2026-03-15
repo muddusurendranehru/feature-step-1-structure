@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export const metadata = {
   title: "HOMA Ecosystem — All Apps | HOMA Clinics",
   description:
@@ -17,10 +19,19 @@ type AppCard = {
   href: string;
   comingSoon?: boolean;
   buttonLabel?: string;
+  image?: string;
 };
 
-// Heart disease tools (informational only; more coming)
-const heartTools: AppCard[] = [];
+// Heart disease tools
+const heartTools: AppCard[] = [
+  {
+    icon: "❤️",
+    title: "TyG Index (Heart Risk Before 60)",
+    description: "Enter triglycerides and fasting glucose to see heart attack risk. TyG Index used by doctors worldwide.",
+    href: "https://dr-muddus-mvp-miracle-value-proposition-2l36.onrender.com",
+    image: "/blog/HOMA%20TyG%20Index%20or%20TyG%20Heart%20Risk.jpg",
+  },
+];
 
 const diabetesTools: AppCard[] = [
   {
@@ -28,30 +39,35 @@ const diabetesTools: AppCard[] = [
     title: "PCOS HOMA Score",
     description: "Calculate your PCOS HOMA-IR insulin resistance score",
     href: "https://pcos-homaiq-score-frontend.onrender.com",
+    image: "/blog/apps-homascore1%20(1).jpg",
   },
   {
     icon: "🍎",
     title: "Nutrition Bot",
     description: "AI nutrition guidance with 3 lakh Indian foods database",
     href: "https://nutrition-bot-frontend.onrender.com",
+    image: "/blog/appsnutri-bot-promo.jpg",
   },
   {
     icon: "📄",
     title: "OCR Lab Reports",
     description: "Upload your lab reports — AI reads and explains them",
     href: "https://ai-image-ocr-1.onrender.com",
+    image: "/blog/homaocraiapp.jpg",
   },
   {
     icon: "💊",
     title: "Drug Trials Tracker",
     description: "Latest clinical trials for diabetes and metabolism drugs",
     href: "https://drug-trials-frontend.onrender.com",
+    image: "/blog/homadrugtiralapp.png",
   },
   {
     icon: "🏥",
     title: "Dr. Muddu MVP (Main Clinic Site)",
     description: "Full clinic website with calculators, blog, assessments",
     href: "https://dr-muddus-mvp-miracle-value-proposition-2l36.onrender.com",
+    image: "/blog/homamvpmetabolictool.jpg",
   },
 ];
 
@@ -59,8 +75,16 @@ const obesityMetabolismTools: AppCard[] = [
   {
     icon: "📊",
     title: "Health Metrics (Diet Tracking)",
-    description: "Track your diet, steps and daily health metrics",
+    description: "Track your diet, steps and daily health metrics — HOMA-IR, TyG, BMI, waist at a glance",
     href: "https://healthmetrics-render1.onrender.com",
+    image: "/blog/homahealthmetrics.jpeg",
+  },
+  {
+    icon: "📏",
+    title: "Belly Fat Danger Zone Meter",
+    description: "Check if your waist size is in the danger zone. Big waist = high risk of heart attack and diabetes.",
+    href: "https://dr-muddus-mvp-miracle-value-proposition-2l36.onrender.com",
+    image: "/blog/homawaistcircumferencetool.jpg",
   },
   {
     icon: "📝",
@@ -69,6 +93,7 @@ const obesityMetabolismTools: AppCard[] = [
       "Latest articles on diabetes reversal, metabolism, calculators, and patient success stories by Dr. Surendra Nehru.",
     href: "https://dr-muddus-mvp-miracle-value-proposition-2l36.onrender.com/blog",
     buttonLabel: "Read the Blog →",
+    image: "/blog/drmuddusmvp.png",
   },
   { icon: "🏃", title: "Exercise Database", description: "Coming soon", href: "#", comingSoon: true },
   { icon: "🔐", title: "Patient Portal (unified login)", description: "Coming soon", href: "#", comingSoon: true },
@@ -78,13 +103,26 @@ const obesityMetabolismTools: AppCard[] = [
     description: "Chat with Dr. Surendra's team on WhatsApp",
     href: "https://wa.me/919963721999",
     buttonLabel: "Open WhatsApp →",
+    image: "/blog/whatsappbot.jpg",
   },
 ];
 
 function AppCardRow({ app }: { app: AppCard }) {
   return (
     <div className="rounded-2xl bg-white p-6 shadow-md dark:bg-gray-800">
-      <div className="mb-3 text-3xl">{app.icon}</div>
+      {app.image ? (
+        <div className="relative mb-3 aspect-video w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-700">
+          <Image
+            src={app.image}
+            alt=""
+            fill
+            className="object-cover"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          />
+        </div>
+      ) : (
+        <div className="mb-3 text-3xl">{app.icon}</div>
+      )}
       <h3 className="mb-2 text-xl font-bold text-primary">{app.title}</h3>
       <p className="mb-4 text-gray-700 dark:text-gray-300">{app.description}</p>
       {app.comingSoon ? (
