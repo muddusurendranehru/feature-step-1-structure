@@ -82,6 +82,14 @@
 - Voice modal (Ask AI): Full conversation history sent to /api/elevenlabs as `messages` array; OpenAI gets system + full history so Ranbir remembers name, phone, area and follow-up questions.
 - Voice modal: Mic auto-submit — user speaks, stops recording → STT text auto-submitted → AI speaks back (no manual Send). Typing still works: type → Send → AI speaks. UI: "Listening…" when recording, "Thinking…" while loading, "Speaking…" then reply text; mic button red + pulse when recording.
 
+**Latest (for Grok):**
+- Pushed: feat: voice modal complete — memory, mic auto-submit, listening/thinking/speaking states (commit 3ea9bda).
+- Both modes: Type → Send → AI speaks; Mic → speak → stop → auto submit → AI speaks. Full `messages` to /api/elevenlabs.
+- Clear .next after code changes; run: $env:PORT="3006"; npm run dev:local. Check http://localhost:3006/admin/voice-settings and Ask AI.
+- Contact page at /contact: Dr. M. Surendra Nehru details, phone/email, Quick Actions (Call, Email, Volunteer/Donate), Business Inquiries (partnership mailto). Partnerships and other pages already link to /contact for "Become a Partner" and "Contact Dr. Surendra."
+- Plan: Build each page response to contact Surendra page later — add CTAs (e.g. "Contact us", "Get in touch") on Education, Community, Investors, Content Studio, Doctor Training, Donations, Join us where relevant, all pointing to /contact. OK to do in a later pass.
+- "localhost sent an invalid response" usually means dev server not running, wrong port, or .next stale — clear .next, restart dev:local, then reload.
+
 **What this log is for (for Grok):** This is the normal dev-server output when the app is healthy. "✓ Ready" means Next.js is serving; "✓ Compiled /route" means that route was built on first request; "GET /route 200" means the page or API responded successfully. Use it to confirm the app runs and which routes were hit. The Watchpack EINVAL lines are Windows file-watcher noise (C:\ system files); they do not affect the app and can be ignored.
 
 *Last updated: March 2026.*

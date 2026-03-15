@@ -3,6 +3,7 @@ import Link from "next/link";
 const quickLinks = [
   { label: "Education", href: "/education" },
   { label: "Community", href: "/community" },
+  { label: "Partnerships", href: "/partnerships" },
   { label: "Investors", href: "/investors" },
   { label: "Content Studio", href: "/content-studio" },
   { label: "Doctor Training", href: "/doctor-training" },
