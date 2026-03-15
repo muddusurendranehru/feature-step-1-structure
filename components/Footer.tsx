@@ -11,6 +11,14 @@ const quickLinks = [
   { label: "Join us", href: "/join-us" },
 ];
 
+const legalLinks = [
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms of Service", href: "/terms-of-service" },
+  { label: "Medical Disclaimer", href: "/medical-disclaimer" },
+  { label: "Franchise Agreement", href: "/franchise-agreement" },
+  { label: "Refund Policy", href: "/refund-policy" },
+];
+
 export function Footer() {
   return (
     <footer className="bg-gray-900 py-12 text-gray-300 dark:bg-black">
@@ -59,9 +67,33 @@ export function Footer() {
               </li>
             </ul>
           </div>
+
+          {/* Legal */}
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
+              Legal
+            </h3>
+            <ul className="mt-4 flex flex-col gap-2">
+              {legalLinks.map(({ label, href }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="hover:text-primary transition-colors"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div className="mt-12 border-t border-gray-800 pt-8 dark:border-gray-900">
+        <div className="mt-8 border-t border-gray-800 pt-6 dark:border-gray-900">
+          <p className="text-center text-sm text-gray-500">
+            Dr. M. Surendra Nehru, MD • Homa Health Care Center • Plot 140, Vinayak Nagar, Gachibowli, Hyderabad • Registration valid until October 2028
+          </p>
+        </div>
+        <div className="mt-4 border-t border-gray-800 pt-6 dark:border-gray-900">
           <p className="text-center text-sm text-gray-400">
             © 2026 ClinicFranchise Nexus
           </p>
