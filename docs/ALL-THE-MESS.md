@@ -55,9 +55,41 @@ Everything that goes wrong and how to fix it. Use this when something breaks.
 - **Variable name:** **`DATABASE_URL`** — not `DATABASE`. The app only reads `DATABASE_URL`.
 - **Format:** One line per variable. No quotes. No spaces around `=`.
 
-**Correct:**
+**NEVER use `DATABASE_URL` without checking the database name in the URL** (the path after the host, before `?`):
+
+| Path in URL | App / purpose only |
+|-------------|--------------------|
+| `/neondb` | Diet plan only |
+| `/AI_OCR1` | Lab reports OCR only |
+| `/pcos_neon_new_1` | PCOS only |
+| `/drmuddusmvp1` | Dr. Muddu MVP only |
+| `/drug_trials_new_neon2` | Drug trials only |
+| `/loan_lens` | Finance app only |
+| `/nutri_bot1` | Nutrition bot only |
+| `/healthmetrics1` | Empty / session only |
+| `/ClinicFlow` | **HOMA Clinics only** (this repo) |
+| `/postgres` | Neon system DB — do not use for app data |
+
+Each Neon project can host multiple databases — **wrong path = wrong app’s data**. Always verify the segment before `?sslmode=...`.
+
+**Apps vs databases (rough scale — don’t mix URLs):**
+
+| App | Database | Patients / data |
+|-----|----------|-----------------|
+| Diet Plan | neondb | 50 customers |
+| Lab Reports OCR | AI_OCR1 | 8 users |
+| PCOS | pcos_neon_new_1 | 6 assessments |
+| Dr. Muddu MVP | drmuddusmvp1 | 17 patients ⚠️ |
+| Drug Trials | drug_trials_new_neon2 | 🟢 |
+| Finance App | loan_lens | 🟡 |
+| Nutrition Bot | nutri_bot1 | 🟢 |
+| Full Business Suite | 12 dimendion dr muddus mvp | 🟡 |
+| (session only) | healthmetrics1 | 🔴 |
+| **HOMA Clinics** | **ClinicFlow** | **our app** ✅ 🟢 |
+
+**Correct (this app = ClinicFlow + myapp_user):**
 ```
-DATABASE_URL=postgresql://neondb_owner:YOUR_PASSWORD@ep-xxx-pooler.region.aws.neon.tech/ClinicFlow?sslmode=require
+DATABASE_URL=postgresql://myapp_user:YOUR_PASSWORD@ep-xxx-pooler.region.aws.neon.tech/ClinicFlow?sslmode=require
 ```
 
 **Wrong:**
@@ -68,17 +100,38 @@ DATABASE_URL = postgresql://... ← space around =
 
 **Quick fix checklist:**
 1. Variable is exactly `DATABASE_URL`?
-2. No space before or after `=`?
-3. No quotes around the URL?
-4. URL ends with `/ClinicFlow?sslmode=require` (or `?sslmode=verify-full`)?
-5. Did you save the file?
-6. After any change: restart dev server (`npm run dev`) or re-run `node test-db.js`.
+2. **URL contains `/ClinicFlow` before `?` — not `/neondb`, `/AI_OCR1`, `/loan_lens`, etc.?**
+3. No space before or after `=`?
+4. No quotes around the URL?
+5. URL ends with `/ClinicFlow?sslmode=require` (or `?sslmode=verify-full`)?
+6. Did you save the file?
+7. After any change: restart dev server (`npm run dev:local`) or re-run `node test-db.js`.
 
 ---
 
 ## Neon database (ClinicFlow)
 
-- **Where:** [console.neon.tech](https://console.neon.tech) → your project.
+**Account hierarchy (don’t mix up):**
+```
+PROJECT: homa_neon_center
+BRANCH:  production
+
+ 1. 12 dimendion dr muddus mvp  → Business Suite
+ 2. AI_OCR1                     → Lab Reports
+ 3. ClinicFlow                  → HOMA Clinics ✅ OUR APP
+ 4. drmuddusmvp1                → Dr. Muddu MVP
+ 5. drug_trials_new_neon2       → Drug Trials
+ 6. healthmetrics1              → Empty (harmless)
+ 7. loan_lens                   → Finance
+ 8. neondb                      → Diet Plan
+ 9. nutri_bot1                  → Nutrition Bot
+10. pcos_neon_new_1             → PCOS
+11. postgres                    → System DB (Neon internal, ignore)
+```
+- **This app uses:** **ClinicFlow** + **myapp_user**. Set `DATABASE_URL` to the **pooled** URL for **ClinicFlow** only.
+- **Do not use:** any other database name in this repo’s `DATABASE_URL`.
+
+- **Where:** [console.neon.tech](https://console.neon.tech) → project **homa_neon_center**.
 - **Database name:** **ClinicFlow** (case-sensitive — not `clinicflow`).
 - **Branch:** production. **Schema:** public.
 - **Connection string:** Use the **Pooled** (pooler) URL from Connection details. Do not use the direct URL for the app.
