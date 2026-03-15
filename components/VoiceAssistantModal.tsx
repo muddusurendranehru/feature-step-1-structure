@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
+import Link from "next/link";
 
 type Message = { role: "user" | "assistant"; text: string };
+
+const WELCOME_MESSAGE = "Welcome. May I have your good name please?";
 
 export function VoiceAssistantModal({
   open,
@@ -12,7 +15,9 @@ export function VoiceAssistantModal({
   onClose: () => void;
 }) {
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(() => [
+    { role: "assistant", text: WELCOME_MESSAGE },
+  ]);
   const [loading, setLoading] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [recording, setRecording] = useState(false);
@@ -50,12 +55,13 @@ export function VoiceAssistantModal({
     const history = messagesRef.current;
     const fullHistory: Message[] = [...history, { role: "user", text }];
     setMessages(fullHistory);
+    messagesRef.current = fullHistory;
     setLoading(true);
     try {
       const res = await fetch("/api/elevenlabs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: fullHistory }),
+        body: JSON.stringify({ text, messages: fullHistory }),
       });
       const data = await res.json().catch(() => ({})) as { text?: string; audio?: string; error?: string };
       if (!res.ok) {
@@ -176,11 +182,20 @@ export function VoiceAssistantModal({
           </button>
         </div>
         <div className="flex max-h-[50vh] flex-col overflow-y-auto p-4">
-          {messages.length === 0 && (
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Ask anything about HOMA Clinics. I can answer in Telugu or English.
+          <div className="mb-3 space-y-2 border-b border-gray-200 pb-3 dark:border-gray-600">
+            <p className="text-sm font-medium text-primary">We have a complete universe of tools for you!</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Here&apos;s what&apos;s available →{" "}
+              <Link
+                href="/apps"
+                className="font-medium text-primary underline hover:no-underline"
+                onClick={() => onClose()}
+              >
+                All apps
+              </Link>
+              . No fetching data, no diet plans, just awareness!
             </p>
-          )}
+          </div>
           {messages.map((m, i) => (
             <div
               key={i}

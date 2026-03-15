@@ -27,4 +27,5 @@ export { sql };
   );
 
   -- See docs/schema-voice-settings.sql for voice_settings (id SERIAL, key VARCHAR(100) UNIQUE, value TEXT, updated_at).
+  -- See docs/schema-celebrity-meetings.sql for celebrity_meetings (id UUID, name, meeting_date, description, type, photo_urls TEXT[], created_at).
 */

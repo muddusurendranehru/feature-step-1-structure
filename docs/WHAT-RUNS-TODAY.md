@@ -41,6 +41,14 @@ Everything else in the table is real, connected, and saving data.
 
 ---
 
+## How to verify changes (when Review button is gone)
+
+- **See what changed:** Source Control (branch icon) → click changed files to view diff.
+- **Voice parrot fix:** Open `components/VoiceAssistantModal.tsx` and `app/api/elevenlabs/route.ts`; confirm modal sends `{ text, messages: fullHistory }` and API builds `[ system, ...previousMessages, { user, currentMessage } ]`.
+- **Test flow:** Ask AI → say "Hello" → then "Surendra" → must say "Thank you Surendra, phone number?" (no repeated greeting). Then "9963721999" → "Perfect, your area?"
+
+---
+
 ## Branch
 
 - Step 7 work lives on: `feature/step-7-voice-cloudinary`.

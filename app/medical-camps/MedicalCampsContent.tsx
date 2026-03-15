@@ -5,12 +5,7 @@ import Image from "next/image";
 import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 import { Card } from "@/components/Card";
 import { Button } from "@/components/Button";
-
-const patientCampImages = [
-  { src: "/camp26b.png", alt: "Camp" },
-  { src: "/camp26mar1.png", alt: "Camp" },
-  { src: "/camp26marc.png", alt: "Camp" },
-];
+import { BlogCardImage } from "@/components/BlogCardImage";
 
 type Camp = {
   id: string;
@@ -286,20 +281,29 @@ export function MedicalCampsContent() {
       <h2 id="patients" className="mb-4 mt-12 text-lg font-semibold text-gray-900 dark:text-white">
         Patients & camp impact
       </h2>
-      <div className="grid gap-4 py-6 sm:grid-cols-1 md:grid-cols-3">
-        {patientCampImages.map((img) => (
-          <Card key={img.src} className="overflow-hidden p-0">
-            <div className="relative aspect-[4/3] w-full">
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 33vw"
-              />
-            </div>
-          </Card>
-        ))}
+      <div className="grid gap-4 py-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {(() => {
+          const IMPACT_PHOTOS_MAX = 12; // show up to 12; increase or remove .slice() to show more
+          const impactPhotos = camps.flatMap((c) => c.photo_urls || []).slice(0, IMPACT_PHOTOS_MAX);
+          if (impactPhotos.length === 0) {
+            return (
+              <p className="col-span-full rounded-xl bg-gray-100 px-4 py-6 text-center text-gray-600 dark:bg-gray-700 dark:text-gray-400">
+                Add camps with photos above — they will show here. No code change needed.
+              </p>
+            );
+          }
+          return impactPhotos.map((url, i) => (
+            <Card key={`${url}-${i}`} className="overflow-hidden p-0">
+              <div className="relative aspect-[4/3] w-full">
+                <BlogCardImage
+                  src={url}
+                  alt="Free Diabetes Checkup Camp"
+                  className="object-cover object-top"
+                />
+              </div>
+            </Card>
+          ));
+        })()}
       </div>
     </section>
   );

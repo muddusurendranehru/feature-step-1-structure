@@ -12,7 +12,7 @@ You MUST collect name, phone, and area before anything else.
 Follow this exact sequence — do not skip or reorder:
 
 1a. GREETING (always start here):
-"Welcome to Dr. M. Surendra Nehru's Universe of Metabolism Management Institute. Namaste! I'm your AI assistant. May I have your good name please?"
+"Welcome. May I have your good name please?"
 
 1b. PHONE (after name received):
 "Thank you [name]. And your phone number please? So we can stay in touch."
@@ -29,6 +29,21 @@ IMPORTANT RULES FOR STEP 1:
 - If patient tries to ask question before giving info, gently say:
   "I'd love to help! Just need your [missing info] first so we can serve you better."
 - Keep tone warm, never robotic
+
+STATE AWARENESS (CRITICAL — READ EVERY TURN):
+- Look at the conversation history BEFORE replying. The user may have ALREADY given name, phone, or area.
+- If the user said their name (e.g. "My name is David", "I am David", "David") → do NOT repeat the welcome. Say ONLY: "Thank you [name]. And your phone number please? So we can stay in touch."
+- If the user already gave phone → ask ONLY for area: "Perfect. And your area or colony name? Just brief."
+- If the user already gave name + phone + area → say the summary and move to "How can I help you today?"
+- NEVER repeat the welcome after the user has already replied. That is parrot behavior — forbidden.
+
+AFTER COLLECTING ALL 3 (name + phone + area) — CRITICAL:
+- IMMEDIATELY give this summary exactly: "Thank you [name]! I have your number as [phone] and you're from [area]. How can I help you today?"
+- THEN switch to general conversation mode. Answer ANY question the patient asks.
+- Do NOT ask for name, phone, or area again. Do NOT repeat the welcome. You have already collected everything — now help with their actual question.
+
+WHAT IS HOMA (answer when asked):
+"HOMA stands for Homeostatic Model Assessment. It measures insulin resistance using fasting blood sugar and insulin. Above 2 means insulin resistance. Try our free calculator at: dr-muddus-mvp-miracle-value-proposition-2l36.onrender.com/tools"
 
 ═══════════════════════════════════════
 STEP 2 — UNHAPPINESS / COMPLAINT DETECTION:
@@ -107,6 +122,49 @@ Q: Camp eppudu undi?
 A: Regular ga Hyderabad lo free diabetes camps chestam. Latest dates ki +91 9963721999 call cheyandi.
 
 ═══════════════════════════════════════
+APP AWARENESS Q&A (answer in ONE line + link):
+Use these ONLY after info (name, phone, area) is collected. Keep answer to one line plus the link.
+
+If asked about apps/tools/universe:
+→ "We have 6 specialist apps for diabetes, obesity and heart disease! See all at: homahealthcarecenter.in/apps"
+
+If asked about lab report/OCR/upload:
+→ "Upload lab report here: ai-image-ocr-1.onrender.com"
+
+If asked about PCOS/hormone/score:
+→ "Free PCOS calculator: pcos-homaiq-score-frontend.onrender.com"
+
+If asked about diet/food/calories/tracking:
+→ "Track diet here: healthmetrics-render1.onrender.com"
+
+If asked about nutrition/nutri bot/food advice:
+→ "AI nutrition guidance: nutrition-bot-frontend.onrender.com"
+
+If asked about drug/medicine/trial/research:
+→ "Drug trials tracker: drug-trials-frontend.onrender.com"
+
+If asked about calculator/BMI/HOMA-IR/TyG:
+→ "Free calculators: dr-muddus-mvp-miracle-value-proposition-2l36.onrender.com/tools"
+
+If asked about almonds/eggs/green apple/diet blog:
+→ "Read our evidence-based blog: homahealthcarecenter.in/blog"
+
+If asked about franchise/partner/revenue:
+→ "60% revenue share franchise: homahealthcarecenter.in/franchise-agreement Call +91 9963721999"
+
+If asked about doctor training/course/CME:
+→ "3-month course Rs.30,000: homahealthcarecenter.in/doctor-training"
+
+If asked about camp/free checkup/volunteer:
+→ "Free diabetes camps: homahealthcarecenter.in/medical-camps Call +91 9963721999"
+
+If asked about HOMA-IR meaning:
+→ "HOMA-IR = fasting sugar x insulin divided by 405. Above 2 = insulin resistance. Test free online!"
+
+If asked about HBA1C vs HOMA:
+→ "HOMA-IR detects insulin resistance EARLIER than HBA1C! Use our free calculator!"
+
+═══════════════════════════════════════
 LANGUAGE RULES:
 ═══════════════════════════════════════
 - Detect language from patient's first response
@@ -128,28 +186,72 @@ GENERAL RULES:
 - Never make up information — if unsure say:
   "Idi confirm cheyyadaniki doctor tho matladali — appointment book cheyyi"`;
 const ELEVENLABS_TTS_URL = "https://api.elevenlabs.io/v1/text-to-speech";
+const FALLBACK_WELCOME = "Welcome. May I have your good name please?";
 
 type MessageItem = { role: "user" | "assistant"; text: string };
-const MAX_MESSAGES = 20;
+const HISTORY_LIMIT = 12; // last 12 turns to avoid token limit, keep chain clear
+
+function normalizeMessage(m: unknown): MessageItem | null {
+  if (!m || typeof m !== "object" || typeof (m as MessageItem).text !== "string") return null;
+  const r = (m as MessageItem).role;
+  if (r !== "user" && r !== "assistant") return null;
+  return { role: r, text: (m as MessageItem).text };
+}
+
+/** Infer name/phone/area from conversation so fallback never parrots welcome. */
+function getContextAwareFallback(messages: MessageItem[]): string {
+  const userMessages = messages.filter((m) => m.role === "user").map((m) => m.text.trim());
+  let name: string | null = null;
+  let phone: string | null = null;
+  let area: string | null = null;
+  for (const msg of userMessages) {
+    const lower = msg.toLowerCase();
+    const digits = (msg.match(/\d/g) || []).length;
+    if (name == null) {
+      const myNameIs = msg.match(/\b(?:my name is|i am|i'm|this is)\s+(.+)/i);
+      const goodMorning = msg.match(/\b(?:good morning|hello|hi),?\s*(.+)/i);
+      if (myNameIs) name = myNameIs[1].trim().replace(/\.$/, "");
+      else if (goodMorning && goodMorning[1].trim().length > 0) name = goodMorning[1].trim().replace(/\.$/, "");
+      else if (msg.length <= 40 && !msg.includes("?") && !/^\d+$/.test(msg)) name = msg.replace(/\.$/, "");
+    } else if (phone == null && digits >= 10) {
+      const num = msg.replace(/\D/g, "").slice(-10);
+      if (num.length >= 10) phone = num;
+    } else if (phone != null && area == null && msg.length > 0 && msg !== (phone ?? "")) {
+      area = msg;
+    }
+  }
+  if (name && !phone) return `Thank you ${name}. And your phone number please? So we can stay in touch.`;
+  if (name && phone && !area) return "Perfect. And your area or colony name? Just brief.";
+  if (name && phone && area) return `Thank you ${name}. I have your number as ${phone} and you're from ${area}. How can I help you today?`;
+  return FALLBACK_WELCOME;
+}
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { messages: rawMessages } = body as { messages?: unknown };
-    const messages: MessageItem[] = Array.isArray(rawMessages)
-      ? (rawMessages as MessageItem[]).filter(
-          (m) =>
-            m &&
-            typeof m === "object" &&
-            (m.role === "user" || m.role === "assistant") &&
-            typeof m.text === "string"
-        )
-      : [];
+    const body = (await request.json()) as {
+      text?: string;
+      message?: string;
+      history?: unknown[];
+      messages?: unknown[];
+    };
+    let messages: MessageItem[];
+    if (Array.isArray(body.messages) && body.messages.length > 0) {
+      messages = body.messages.map(normalizeMessage).filter(Boolean) as MessageItem[];
+    } else if (typeof (body.text ?? body.message) === "string" && Array.isArray(body.history)) {
+      const history = body.history.map(normalizeMessage).filter(Boolean) as MessageItem[];
+      const current = (body.text ?? body.message) as string;
+      messages = [...history, { role: "user", text: current.trim() }];
+    } else {
+      return NextResponse.json(
+        { error: "body must have { text, messages: fullHistory } or { message, history }" },
+        { status: 400 }
+      );
+    }
     const lastUser = messages.filter((m) => m.role === "user").pop();
     const userMessage = lastUser?.text?.trim();
     if (!userMessage) {
       return NextResponse.json(
-        { error: "messages array with at least one user message required" },
+        { error: "at least one user message required" },
         { status: 400 }
       );
     }
@@ -179,6 +281,15 @@ export async function POST(request: Request) {
       }
     }
 
+    // Full history to OpenAI — do NOT reset. Last message MUST be current user turn.
+    const previousMessages = messages.slice(0, -1).slice(-(HISTORY_LIMIT - 1));
+    const currentMessage = messages[messages.length - 1];
+    const openaiMessages = [
+      { role: "system" as const, content: systemPrompt },
+      ...previousMessages.map((m) => ({ role: m.role, content: m.text })),
+      { role: "user" as const, content: currentMessage.text },
+    ];
+
     let replyText: string;
     const openaiKey = process.env.OPENAI_API_KEY;
     if (openaiKey) {
@@ -190,13 +301,7 @@ export async function POST(request: Request) {
         },
         body: JSON.stringify({
           model: "gpt-4o-mini",
-          messages: [
-            { role: "system", content: systemPrompt },
-            ...messages.slice(-MAX_MESSAGES).map((m) => ({
-              role: m.role,
-              content: m.text,
-            })),
-          ],
+          messages: openaiMessages,
           max_tokens: 300,
         }),
       });
@@ -206,12 +311,12 @@ export async function POST(request: Request) {
         };
         replyText =
           chatData.choices?.[0]?.message?.content?.trim() ||
-          "I'm here to help. Ask about HOMA Clinics in Telugu or English.";
+          getContextAwareFallback(messages);
       } else {
-        replyText = "I'm here to help. Ask about HOMA Clinics in Telugu or English.";
+        replyText = getContextAwareFallback(messages);
       }
     } else {
-      replyText = "I'm here to help. Ask about HOMA Clinics in Telugu or English.";
+      replyText = getContextAwareFallback(messages);
     }
 
     const apiKey = process.env.ELEVENLABS_API_KEY;

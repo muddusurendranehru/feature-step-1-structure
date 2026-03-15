@@ -22,6 +22,12 @@ All core pages and major features are live and tested locally. GitHub repo (main
 * ✅ Apps page (/apps) — “HOMA Ecosystem — All Apps”, Patient Tools (Health Metrics, Nutrition Bot, PCOS HOMA Score, OCR Lab Reports), Doctor Tools (Drug Trials, Dr. Muddu MVP), Coming Soon (Exercise DB, Patient Portal, WhatsApp Bot). All open in new tab. Apps link in NavBar + Footer.
 * Dr. Muddu MVP (Main Clinic Site) = separate Render app: Gachibowli clinic, metabolic calculators (HOMA-IR, TyG), 09963721999, JOIN • DONATE • FRANCHISE. Linked from /apps as “Full clinic website with calculators, blog, assessments”.
 
+* **Blog (/blog):** HOMA Health Blog with article cards. Add photos to `public/blog/` (acv.jpg, almonds-pcos.jpg, etc.). Missing images show placeholder; no 404s. See `docs/BLOG-PHOTOS.md`.
+* **Positioning:** Ask AI voice → one-line app links (engaging!). /apps page → informational universe (educating!).
+* **/apps:** Informational only — HOMA Universe intro, three category banners (🫀 Heart / 🩸 Diabetes / ⚖️ Obesity & Metabolism), “Visit App →” buttons, disclaimer to consult Dr. M. Surendra Nehru MD, +91 9963721999.
+* **Ask AI:** Modal shows “We have a complete universe of tools” + link to All apps; no data fetching or diet plans, just awareness. Run dev: `npm run dev` (often http://localhost:3006).
+* **Ask AI — Known issue (add to rules):** The voice assistant loses the conversation chain and parrots the same welcome. After the user gives their name or asks a question, the AI often repeats the full welcome instead of continuing the flow (e.g. "Thank you [name], and your phone number please?"). Fix: ensure the model receives full message history and follows STEP 1 → STEP 2 → STEP 3; responses must be context-aware and stateful. Check `/api/elevenlabs` and system prompt.
+
 **Next priorities (choose one):**
 1. Real ElevenLabs voice modal polish (TTS/STT, chat UI, error handling)
 2. Cloudinary upload full integration (signed URLs, progress bar, error messages)
