@@ -25,4 +25,6 @@ export { sql };
     role TEXT NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW()
   );
+
+  -- See docs/schema-voice-settings.sql for voice_settings (id SERIAL, key VARCHAR(100) UNIQUE, value TEXT, updated_at).
 */
