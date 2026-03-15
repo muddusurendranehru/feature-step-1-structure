@@ -7,11 +7,15 @@ export default function Error({
   error,
   reset,
 }: {
-  error: Error & { digest?: string };
+  error: unknown;
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error(error);
+    if (error instanceof Error) {
+      console.error(error);
+    } else {
+      console.error("Runtime error:", error);
+    }
   }, [error]);
 
   return (
@@ -25,7 +29,7 @@ export default function Error({
       <div className="flex gap-3">
         <button
           type="button"
-          onClick={reset}
+          onClick={() => reset()}
           className="rounded-xl bg-primary px-5 py-2.5 font-medium text-white hover:opacity-90"
         >
           Try again

@@ -19,6 +19,7 @@ const variantStyles: Record<ButtonVariant, string> = {
 export function Button({
   variant = "primary",
   className = "",
+  type = "button",
   children,
   ...props
 }: ButtonProps) {
@@ -27,7 +28,7 @@ export function Button({
   const padding = "px-4 py-2.5 sm:px-5 sm:py-3";
   return (
     <button
-      type="button"
+      type={type}
       className={`${base} ${padding} ${variantStyles[variant]} ${className}`}
       {...props}
     >

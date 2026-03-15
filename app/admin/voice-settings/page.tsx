@@ -30,6 +30,7 @@ export default function AdminVoiceSettingsPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (e?.stopPropagation) e.stopPropagation();
     setMessage(null);
     setSaving(true);
     try {
@@ -43,8 +44,14 @@ export default function AdminVoiceSettingsPage() {
           announcement,
         }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to save");
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setMessage({
+          type: "err",
+          text: (data && typeof data.error === "string" ? data.error : null) || "Failed to save",
+        });
+        return;
+      }
       setMessage({ type: "ok", text: "Voice settings saved. Ask AI will use the latest info." });
     } catch (err) {
       setMessage({

@@ -19,6 +19,8 @@ export function VoiceAssistantModal({
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
+  const messagesRef = useRef<Message[]>([]);
+  messagesRef.current = messages;
 
   const playAudioBlob = useCallback(async (blob: Blob) => {
     if (playing) return;
@@ -42,6 +44,62 @@ export function VoiceAssistantModal({
     }
   }, [playing]);
 
+  const submitMessage = useCallback(async (userText: string) => {
+    const text = userText.trim();
+    if (!text || loading) return;
+    const history = messagesRef.current;
+    const fullHistory: Message[] = [...history, { role: "user", text }];
+    setMessages(fullHistory);
+    setLoading(true);
+    try {
+      const res = await fetch("/api/elevenlabs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: fullHistory }),
+      });
+      const data = await res.json().catch(() => ({})) as { text?: string; audio?: string; error?: string };
+      if (!res.ok) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            text: (data.error as string) || "Something went wrong. Please try again.",
+          },
+        ]);
+        setLoading(false);
+        return;
+      }
+      const replyText = typeof data.text === "string" ? data.text : "";
+      setMessages((prev) => [...prev, { role: "assistant", text: "Speaking…" }]);
+      if (typeof data.audio === "string" && data.audio.length > 0) {
+        const binary = atob(data.audio);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+        const blob = new Blob([bytes], { type: "audio/mpeg" });
+        await playAudioBlob(blob);
+        setMessages((prev) =>
+          prev.map((m, i) =>
+            i === prev.length - 1 && m.role === "assistant" ? { ...m, text: replyText || m.text } : m
+          )
+        );
+      } else {
+        setMessages((prev) =>
+          prev.map((m, i) =>
+            i === prev.length - 1 && m.role === "assistant" ? { ...m, text: replyText || m.text } : m
+          )
+        );
+      }
+    } catch (err) {
+      console.error(err);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", text: "Something went wrong. Please try again." },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  }, [loading, playAudioBlob]);
+
   const startRecording = useCallback(async () => {
     if (recording || loading) return;
     try {
@@ -53,6 +111,7 @@ export function VoiceAssistantModal({
       };
       recorder.onstop = async () => {
         stream.getTracks().forEach((t) => t.stop());
+        setRecording(false);
         const blob = new Blob(chunksRef.current, { type: "audio/webm" });
         const formData = new FormData();
         formData.append("file", blob, "audio.webm");
@@ -63,7 +122,7 @@ export function VoiceAssistantModal({
           });
           const data = (await res.json()) as { text?: string; error?: string };
           const text = (data.text ?? "").trim();
-          if (text) setInput((prev) => (prev ? `${prev} ${text}` : text));
+          if (text) await submitMessage(text);
         } catch {
           // ignore STT errors (e.g. not configured)
         }
@@ -74,7 +133,7 @@ export function VoiceAssistantModal({
     } catch {
       setRecording(false);
     }
-  }, [recording, loading]);
+  }, [recording, loading, submitMessage]);
 
   const stopRecording = useCallback(() => {
     const recorder = mediaRecorderRef.current;
@@ -90,45 +149,7 @@ export function VoiceAssistantModal({
     const text = input.trim();
     if (!text || loading) return;
     setInput("");
-    setMessages((prev) => [...prev, { role: "user", text }]);
-    setLoading(true);
-    try {
-      const res = await fetch("/api/elevenlabs", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text }),
-      });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        setMessages((prev) => [
-          ...prev,
-          {
-            role: "assistant",
-            text: (data.error as string) || "Something went wrong. Please try again.",
-          },
-        ]);
-        setLoading(false);
-        return;
-      }
-      const blob = await res.blob();
-      setMessages((prev) => [...prev, { role: "assistant", text: "Speaking…" }]);
-      await playAudioBlob(blob);
-      setMessages((prev) =>
-        prev.map((m, i) =>
-          i === prev.length - 1 && m.role === "assistant"
-            ? { ...m, text: "✓" }
-            : m
-        )
-      );
-    } catch (err) {
-      console.error(err);
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", text: "Something went wrong. Please try again." },
-      ]);
-    } finally {
-      setLoading(false);
-    }
+    await submitMessage(text);
   }
 
   if (!open) return null;
@@ -177,6 +198,11 @@ export function VoiceAssistantModal({
               Thinking…
             </div>
           )}
+          {recording && (
+            <div className="mb-2 mr-8 rounded-lg bg-gray-100 px-3 py-2 text-sm text-gray-500 dark:bg-gray-700 dark:text-gray-400">
+              Listening…
+            </div>
+          )}
         </div>
         <form onSubmit={handleSubmit} className="border-t border-gray-200 p-4 dark:border-gray-700">
           <div className="flex gap-2">
@@ -186,7 +212,7 @@ export function VoiceAssistantModal({
               disabled={loading}
               className={`rounded-lg px-3 py-2 ${
                 recording
-                  ? "bg-red-500 text-white"
+                  ? "animate-pulse bg-red-500 text-white"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500"
               }`}
               title={recording ? "Stop recording" : "Speak (speech-to-text)"}

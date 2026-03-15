@@ -76,6 +76,11 @@
 - Doctor Training, Education, Community, Investors, Content Studio — all five pages have full content (hero, cards, CTAs/links; LOI & Investor Deck PDF links; Coming Soon where noted).
 - Doctor Training: 3-month certificate, 4 modules, LOI download. Education: CME workshops, Register Interest. Community: View Past Camps → /medical-camps, Donate Now → /donations.
 - Investors: Seed funding, Why Invest (3 cards), Investor Deck PDF, Express Interest (Coming Soon). Content Studio: Grok/AI infographics, video prompts, SEO blog (Coming Soon).
+- Legal pages: Privacy Policy, Terms of Service, Medical Disclaimer, Franchise Agreement, Refund Policy — all five at /privacy-policy, /terms-of-service, /medical-disclaimer, /franchise-agreement, /refund-policy; green HOMA styling; no existing pages or DB touched.
+- Footer: Legal column with links to all 5 pages; line added for Dr. M. Surendra Nehru, MD, Homa Health Care Center, Plot 140 Vinayak Nagar Gachibowli Hyderabad, registration valid until October 2028.
+- Franchise agreement page: LOI summary, 60% revenue share, territory, training; Download PDF → /LOI-template.pdf (add file to public when ready).
+- Voice modal (Ask AI): Full conversation history sent to /api/elevenlabs as `messages` array; OpenAI gets system + full history so Ranbir remembers name, phone, area and follow-up questions.
+- Voice modal: Mic auto-submit — user speaks, stops recording → STT text auto-submitted → AI speaks back (no manual Send). Typing still works: type → Send → AI speaks. UI: "Listening…" when recording, "Thinking…" while loading, "Speaking…" then reply text; mic button red + pulse when recording.
 
 **What this log is for (for Grok):** This is the normal dev-server output when the app is healthy. "✓ Ready" means Next.js is serving; "✓ Compiled /route" means that route was built on first request; "GET /route 200" means the page or API responded successfully. Use it to confirm the app runs and which routes were hit. The Watchpack EINVAL lines are Windows file-watcher noise (C:\ system files); they do not affect the app and can be ignored.
 
