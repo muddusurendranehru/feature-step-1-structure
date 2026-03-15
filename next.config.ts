@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
+  output: "standalone",
   outputFileTracingRoot: path.join(process.cwd()),
   eslint: {
     // Avoid "Invalid Options: useEslintrc, extensions" when Next invokes ESLint (ESLint 9 compat)
