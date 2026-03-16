@@ -43,24 +43,57 @@ export default function InvestorsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <section className="bg-primary px-4 py-16 text-center text-white">
-        <div className="mx-auto max-w-4xl">
-          <h1 className="mb-6 text-3xl font-bold sm:text-4xl md:text-5xl">
-            Seed Funding Opportunity
-          </h1>
-          <p className="mb-8 text-xl md:text-2xl">
-            Private placement at ₹0.10 (10 paise) per share • Founder retains 51%+ majority •
-            10-year horizon
-          </p>
+      {/* Hero */}
+      <div className="bg-[#1B6B45] text-white py-20 px-6 text-center">
+        <p className="text-green-300 text-sm font-semibold uppercase tracking-widest mb-3">
+          Seed Funding Opportunity
+        </p>
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          India&apos;s First Insulin Resistance
+          <br />
+          Franchise Platform
+        </h1>
+        <p className="text-xl opacity-90 max-w-2xl mx-auto mb-8">
+          Backed by 2 peer-reviewed papers published in 2026 · 5,000+ patients tested · 32
+          years clinical experience
+        </p>
+
+        {/* 4 stat boxes */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-10">
+          {[
+            ["₹0.10", "Per Share Entry"],
+            ["51%+", "Founder Majority"],
+            ["4", "Indexed Papers"],
+            ["100+", "Franchise Centers Target"],
+          ].map(([val, label]) => (
+            <div key={label} className="bg-white/10 rounded-2xl py-4 px-2">
+              <div className="text-3xl font-bold">{val}</div>
+              <div className="text-green-200 text-sm mt-1">{label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Research badge */}
+        <div className="inline-block bg-yellow-400 text-yellow-900 font-bold px-6 py-2 rounded-full text-sm mb-8">
+          🏆 2 Papers Published in 2026 · Best Diabetologist Award 2024
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/faq"
+            className="bg-white text-[#1B6B45] font-bold px-8 py-3 rounded-full hover:bg-green-50"
+          >
+            Read FAQ
+          </a>
           <a
             href="/investor-deck.pdf"
             download
-            className={`${buttonBase} ${buttonOutline}`}
+            className="border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white hover:text-[#1B6B45]"
           >
-            Download Investor Deck (PDF)
+            Download Investor Deck
           </a>
         </div>
-      </section>
+      </div>
 
       <section className="px-4 py-16">
         <div className="mx-auto max-w-5xl">
@@ -89,17 +122,25 @@ export default function InvestorsPage() {
             </div>
             <div className="rounded-2xl bg-white p-8 shadow-md dark:bg-gray-800">
               <h3 className="mb-4 text-2xl font-bold text-primary">Scalable Model</h3>
-              <p className="text-gray-700 dark:text-gray-300">
-                Franchise-ready: 100+ centers projected in 10 years. Revenue from consultations,
-                training, donations.
-              </p>
+              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                <li>✅ Franchise-ready: 100+ centers projected in 10 years</li>
+                <li>✅ Every clinic runs the ₹2500 HOMA package — 15 tests</li>
+                <li>✅ Revenue from consultations, CME training, donations</li>
+                <li>✅ No upper age limit — target is everyone 20–90 years</li>
+                <li>✅ Waist &gt;85cm = automatic patient — 70%+ of urban India qualifies</li>
+                <li>✅ One test replaces 6–7 tablets for many patients</li>
+              </ul>
             </div>
             <div className="rounded-2xl bg-white p-8 shadow-md dark:bg-gray-800">
               <h3 className="mb-4 text-2xl font-bold text-primary">Social Impact</h3>
-              <p className="text-gray-700 dark:text-gray-300">
-                Free camps, awareness lectures, doctor training — real change in metabolic health
-                crisis.
-              </p>
+              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                <li>🏕️ 100+ free diabetes camps across Telangana</li>
+                <li>🧪 5,000+ fasting insulin resistance tests conducted</li>
+                <li>📖 India&apos;s first HOMA center — Gachibowli, Hyderabad</li>
+                <li>❤️ Heart patients &amp; statin users — high-risk group reached</li>
+                <li>🚫 Quit India Diabetes &amp; Obesity Campaign — Dr. Nehru&apos;s mission</li>
+                <li>📚 Published author — HOMA-IR Early Diagnosis book, COVID Handbook</li>
+              </ul>
             </div>
           </div>
           <div className="mt-12">
@@ -115,6 +156,124 @@ export default function InvestorsPage() {
                 />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Technology Advantage */}
+      <section className="px-4 py-16 bg-white dark:bg-gray-900">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="mb-10 text-center text-3xl font-bold text-primary">
+            Our Technology Advantage
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-3">
+            <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+              <div className="relative aspect-[4/3] w-full bg-gray-100 dark:bg-gray-700">
+                <Image
+                  src="/blog/apps-homascore1.jpg"
+                  alt="HOMA Score App"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <div className="p-5">
+                <h3 className="mb-2 text-xl font-bold text-primary">
+                  HOMA Score App — Nobody Has This
+                </h3>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  World&apos;s first clinic app measuring HOMA-IR + TYG Index together. HbA1c is old history.
+                </p>
+              </div>
+            </div>
+            <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+              <div className="relative aspect-[4/3] w-full bg-gray-100 dark:bg-gray-700">
+                <Image
+                  src="/blog/homa-diet-1.png"
+                  alt="Dr Muddu Metabolism Mantra"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <div className="p-5">
+                <h3 className="mb-2 text-xl font-bold text-primary">
+                  Dr Muddu Metabolism Mantra
+                </h3>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  AI-powered diet protocol app
+                </p>
+              </div>
+            </div>
+            <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+              <div className="relative aspect-[4/3] w-full bg-gray-100 dark:bg-gray-700">
+                <Image
+                  src="/blog/homa-package.png"
+                  alt="Clinic Package ₹2500"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <div className="p-5">
+                <h3 className="mb-2 text-xl font-bold text-primary">
+                  Clinic Package ₹2500
+                </h3>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  15 tests, 33% discount, HOMA Index included
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="mt-10">
+            <h3 className="mb-4 text-center text-2xl font-bold text-primary">
+              Why India Needs HOMA Test — Not HbA1c
+            </h3>
+            <div className="relative w-full overflow-hidden rounded-2xl border border-gray-200 shadow-lg dark:border-gray-700">
+              <div className="relative aspect-[21/9] w-full bg-gray-100 dark:bg-gray-700 sm:aspect-[3/1]">
+                <Image
+                  src="/blog/why-.jpg"
+                  alt="Why India Needs HOMA Test — Not HbA1c"
+                  fill
+                  className="object-cover object-center"
+                  sizes="100vw"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Peer-Reviewed Research — green card */}
+      <section className="px-4 py-16 bg-white dark:bg-gray-900">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="mb-6 text-center text-3xl font-bold text-primary">
+            Peer-Reviewed Research
+          </h2>
+          <div className="rounded-2xl border-2 border-primary bg-primary/10 p-8 shadow-lg dark:bg-primary/20 dark:border-primary/50">
+            <h3 className="mb-3 text-xl font-bold text-primary dark:text-primary">
+              Published Paper — International Journal of Medicine, March 2026
+            </h3>
+            <p className="mb-2 text-gray-800 dark:text-gray-200">
+              TyG Index correlates with HbA1c (r=0.46, p=0.001).
+            </p>
+            <p className="mb-4 text-sm text-gray-700 dark:text-gray-300">
+              <a
+                href="https://doi.org/10.61336/im/26-3-10"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary font-medium hover:underline"
+              >
+                DOI: 10.61336/im/26-3-10
+              </a>
+            </p>
+            <a
+              href="/research/tyg-hba1c-paper-2026.pdf"
+              download
+              className="inline-flex items-center justify-center rounded-xl bg-primary px-5 py-3 font-medium text-white shadow-sm hover:bg-primary-dark focus:ring-2 focus:ring-primary focus:ring-offset-2 sm:px-6 sm:py-3.5"
+            >
+              Download PDF
+            </a>
           </div>
         </div>
       </section>

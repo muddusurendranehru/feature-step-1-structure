@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { HowItWorksCards } from "@/components/HowItWorksCards";
 
 const DOOR_TO_DOOR_STEPS: { title: string; items: (string | { text: string; sub: string[] })[] }[] = [
   {
@@ -84,34 +85,124 @@ const STATS_ITEMS = [
 export default function HomePage() {
   return (
     <main className="min-h-screen">
-      {/* Hero section with Dr. Surendra photo on the right */}
-      <section className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:py-20">
-        <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
-          <div className="max-w-3xl flex-1 text-center lg:text-left">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl lg:text-5xl">
-              HOMA Clinics
+      {/* HERO */}
+      <div className="min-h-screen bg-gradient-to-br from-[#f0faf4] to-white dark:from-gray-900 dark:to-gray-800">
+        {/* Top hero - two column */}
+        <div className="mx-auto max-w-7xl grid items-center gap-8 px-6 pb-8 pt-16 md:grid-cols-2">
+          {/* Left - Text */}
+          <div>
+            {/* D-D-D Badge */}
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#1B6B45] px-4 py-2 text-sm font-bold text-white">
+              🚪 D · D · D — Door to Door Diabetes Delivery
+            </div>
+
+            <h1 className="mb-4 text-5xl font-black leading-tight text-gray-900 dark:text-gray-100 md:text-6xl">
+              <span className="text-[#1B6B45]">HOMA</span> Clinics
             </h1>
-            <div className="mt-6 sm:mt-8">
+
+            <p className="mb-3 text-2xl font-bold text-gray-700 dark:text-gray-300">
+              India&apos;s First Complete End-to-End
+              <br />
+              <span className="text-[#1B6B45]">Diabetes &amp; Metabolism Reversal System</span>
+            </p>
+
+            <p className="mb-8 text-lg leading-relaxed text-gray-500 dark:text-gray-400">
+              From your <strong>doorstep blood test</strong> → AI-powered <strong>HOMA Score</strong> → personalised <strong>diet protocol</strong> → 90-day <strong>metabolic reversal</strong>.
+              <br />
+              No hospital. No queue. No confusion.
+            </p>
+
+            {/* D-D-D 3 steps */}
+            <div className="mb-8 grid grid-cols-3 gap-3">
+              {[
+                ["🚪", "Door 1", "Home Collection", "Fasting insulin test at your door"],
+                ["📊", "Door 2", "HOMA Score", "Your insulin resistance report"],
+                ["💊", "Door 3", "Delivery", "Diet plan + reversal protocol"],
+              ].map(([icon, door, title, sub]) => (
+                <div
+                  key={door}
+                  className="rounded-2xl border border-green-100 bg-white p-4 text-center shadow-sm dark:border-gray-600 dark:bg-gray-800"
+                >
+                  <div className="mb-1 text-2xl">{icon}</div>
+                  <div className="text-xs font-bold uppercase tracking-widest text-[#1B6B45]">
+                    {door}
+                  </div>
+                  <div className="mt-1 text-xl font-bold text-gray-800 dark:text-gray-200">
+                    {title}
+                  </div>
+                  <div className="mt-1 text-sm text-gray-400">{sub}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-3">
               <Link
-                href="/apps"
-                className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 font-medium text-white shadow-sm transition-colors hover:bg-primary-dark sm:px-5 sm:py-3"
+                href="/enroll"
+                className="rounded-full bg-[#1B6B45] px-8 py-4 text-lg font-bold text-white shadow-lg transition hover:bg-[#155534]"
               >
-                Explore
+                Enroll Now — ₹6,500
+              </Link>
+              <Link
+                href="/faq"
+                className="rounded-full border-2 border-[#1B6B45] px-8 py-4 text-lg font-bold text-[#1B6B45] transition hover:bg-[#f0faf4] dark:hover:bg-gray-800"
+              >
+                What is HOMA?
               </Link>
             </div>
+
+            {/* Trust signals */}
+            <div className="mt-6 flex flex-wrap gap-4 text-sm text-gray-400 dark:text-gray-500">
+              <span>✅ 5,000+ tests done</span>
+              <span>✅ 32 years experience</span>
+              <span>✅ 2 published papers 2026</span>
+              <span>✅ 🏆 Best Diabetologist 2024</span>
+            </div>
           </div>
-          <div className="relative h-64 w-64 shrink-0 sm:h-72 sm:w-72 lg:h-80 lg:w-80">
-            <Image
-              src="/blog/drmuddusmvp.png"
-              alt="Dr. Surendra"
-              fill
-              className="rounded-2xl object-contain object-top shadow-lg"
-              sizes="(max-width: 1024px) 288px, 320px"
-              priority
-            />
+
+          {/* Right - Doctor photo */}
+          <div className="flex justify-center">
+            <div className="relative">
+              <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-3xl bg-[#1B6B45] opacity-10" />
+              <Image
+                src="/blog/homa-msn-graphic.png"
+                alt="Dr. Muddu Surendra Nehru MD"
+                width={384}
+                height={480}
+                className="relative max-w-sm w-full rounded-3xl object-cover shadow-2xl"
+                priority
+              />
+              {/* Floating badge */}
+              <div className="absolute -bottom-4 -left-4 rounded-2xl bg-yellow-400 px-4 py-2 text-sm font-bold text-yellow-900 shadow-lg">
+                🏆 Best Diabetologist 2024
+              </div>
+              <div className="absolute -top-4 -right-4 rounded-2xl bg-[#1B6B45] px-4 py-2 text-sm font-bold text-white shadow-lg">
+                📄 2 Papers — 2026
+              </div>
+            </div>
           </div>
         </div>
-      </section>
+
+        {/* Bottom stats bar */}
+        <div className="mt-8 bg-[#1B6B45] px-6 py-6 text-white">
+          <div className="mx-auto grid max-w-5xl grid-cols-2 gap-6 text-center md:grid-cols-4">
+            {[
+              ["5,000+", "HOMA Tests Done"],
+              ["1,000+", "Free Camps Held"],
+              ["6", "AI-Powered Apps"],
+              ["100+", "Franchise Centers Planned"],
+            ].map(([val, label]) => (
+              <div key={label}>
+                <div className="text-3xl font-black">{val}</div>
+                <div className="mt-1 text-sm text-green-200">{label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* How It Works — expandable D-D-D cards */}
+      <HowItWorksCards />
 
       {/* USP: Door-to-Door Diabetes Reversal */}
       <section className="border-b border-primary/20 bg-white px-4 py-12 dark:bg-gray-50 dark:border-primary/30 sm:px-6 sm:py-16">
