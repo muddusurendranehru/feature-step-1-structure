@@ -48,7 +48,12 @@ export default function AboutPage() {
 
       <section className="px-4 py-12 sm:px-6 sm:py-16">
         <div className="mx-auto max-w-3xl">
-          <p className="mb-6 text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+          <img
+            src="/blog/homa-chiru.jpg"
+            alt="Dr. Muddu Surendra Nehru MD with Chiranjeevi"
+            className="rounded-full w-64 h-64 object-cover mx-auto"
+          />
+          <p className="mb-6 mt-6 text-lg leading-relaxed text-gray-700 dark:text-gray-300">
             With over <strong>25 years of experience</strong> in preventive medicine, Dr. Surendra Nehru has dedicated his career to one mission:{" "}
             <strong>making India diabetes-free and obesity-free</strong>.
           </p>

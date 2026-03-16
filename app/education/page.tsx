@@ -19,7 +19,19 @@ export default function EducationPage() {
           <h2 className="mb-12 text-center text-3xl font-bold text-primary">
             Program Details
           </h2>
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="flex justify-center">
+            <div className="text-center">
+              <img
+                src="/blog/homa-book.jpg"
+                alt="Dr. Muddu Surendra Nehru with The COVID-19 Handbook at Bravera Health USA"
+                className="mx-auto mb-2 w-64 rounded-xl object-cover shadow-lg md:w-80"
+              />
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Dr. Muddu Surendra Nehru MD, Author — The COVID-19 Handbook, Bravera Health USA
+              </p>
+            </div>
+          </div>
+          <div className="mt-10 grid gap-8 md:grid-cols-2">
             <div className="rounded-2xl bg-white p-8 shadow-md dark:bg-gray-800">
               <h3 className="mb-4 text-2xl font-bold">Schedule & Format</h3>
               <ul className="list-disc space-y-2 pl-6 text-gray-700 dark:text-gray-300">

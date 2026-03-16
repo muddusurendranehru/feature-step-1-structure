@@ -31,15 +31,20 @@ export default function DonationsPage() {
               See options below
             </Link>
           </div>
-          <div className="relative order-1 aspect-[4/3] w-full overflow-hidden rounded-2xl border-2 border-white/20 bg-white/10 lg:order-2">
-            <Image
-              src="/blog/homa-about-hero.png"
-              alt="Dr. Surendra Nehru with Megastar Chiranjeevi – appreciation for HOMA Healthcare Center"
-              fill
-              className="object-cover object-center"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              priority
-            />
+          <div className="relative order-1 w-full lg:order-2">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border-2 border-white/20 bg-white/10">
+              <Image
+                src="/blog/homa-chiru.jpg"
+                alt="Dr. Surendra Nehru with Megastar Chiranjeevi – appreciation for HOMA Healthcare Center"
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
+            </div>
+            <p className="mt-3 text-center text-sm font-medium text-white/95 lg:text-left">
+              Dr. Surendra Nehru with Megastar Chiranjeevi – appreciation for HOMA Healthcare Center
+            </p>
           </div>
         </div>
       </section>
