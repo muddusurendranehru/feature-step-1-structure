@@ -1,5 +1,5 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Hero } from "@/components/Hero";
 
 const DOOR_TO_DOOR_STEPS: { title: string; items: (string | { text: string; sub: string[] })[] }[] = [
   {
@@ -84,11 +84,34 @@ const STATS_ITEMS = [
 export default function HomePage() {
   return (
     <main className="min-h-screen">
-      <Hero
-        headline="HOMA Clinics"
-        ctaLabel="Explore"
-        ctaHref="/apps"
-      />
+      {/* Hero section with Dr. Surendra photo on the right */}
+      <section className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:py-20">
+        <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
+          <div className="max-w-3xl flex-1 text-center lg:text-left">
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl lg:text-5xl">
+              HOMA Clinics
+            </h1>
+            <div className="mt-6 sm:mt-8">
+              <Link
+                href="/apps"
+                className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 font-medium text-white shadow-sm transition-colors hover:bg-primary-dark sm:px-5 sm:py-3"
+              >
+                Explore
+              </Link>
+            </div>
+          </div>
+          <div className="relative h-64 w-64 shrink-0 sm:h-72 sm:w-72 lg:h-80 lg:w-80">
+            <Image
+              src="/blog/drmuddusmvp.png"
+              alt="Dr. Surendra"
+              fill
+              className="rounded-2xl object-contain object-top shadow-lg"
+              sizes="(max-width: 1024px) 288px, 320px"
+              priority
+            />
+          </div>
+        </div>
+      </section>
 
       {/* USP: Door-to-Door Diabetes Reversal */}
       <section className="border-b border-primary/20 bg-white px-4 py-12 dark:bg-gray-50 dark:border-primary/30 sm:px-6 sm:py-16">
