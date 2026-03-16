@@ -50,7 +50,7 @@ export function NavBar() {
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden sm:flex items-center gap-2 sm:gap-3">
           <SignedOut>
             <SignInButton mode="modal" forceRedirectUrl={redirectUrl}>
               <button
@@ -83,7 +83,7 @@ export function NavBar() {
         {/* Mobile hamburger */}
         <button
           type="button"
-          className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-gray-700 hover:bg-primary/10 hover:text-primary dark:text-gray-300 md:hidden"
+          className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-gray-700 hover:bg-primary/10 hover:text-primary dark:text-gray-300 sm:hidden"
           aria-label="Toggle menu"
           onClick={() => setMobileOpen((prev) => !prev)}
         >
@@ -121,18 +121,7 @@ export function NavBar() {
       >
         <nav className="min-w-[280px] border-t border-gray-200 bg-white/95 px-4 py-4 backdrop-blur-md dark:border-gray-700 dark:bg-gray-900/95">
           <ul className="flex flex-col gap-4">
-            {navLinks.map(({ label, href }) => (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className="flex min-h-[44px] items-center rounded-md px-3 py-3 text-gray-700 hover:bg-primary/10 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-            <li className="mt-4 flex flex-col gap-4 border-t border-gray-200 pt-4 dark:border-gray-700">
+            <li className="flex flex-col gap-4 pb-4 border-b border-gray-200 dark:border-gray-700">
               <SignedOut>
                 <SignInButton mode="modal" forceRedirectUrl={redirectUrl}>
                   <button
@@ -166,6 +155,17 @@ export function NavBar() {
                 Enroll Now
               </Link>
             </li>
+            {navLinks.map(({ label, href }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className="flex min-h-[44px] items-center rounded-md px-3 py-3 text-gray-700 hover:bg-primary/10 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>
