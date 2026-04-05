@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { ClientLayout } from "@/components/ClientLayout";
+import { ClientLayout } from "@/components/layout/ClientLayout";
 
 export const metadata: Metadata = {
   title: {
