@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HowItWorksCards } from "@/components/common/HowItWorksCards";
+import { FranchiseApplyForm } from "@/components/features/franchise/FranchiseApplyForm";
 
 const DOOR_TO_DOOR_STEPS: { title: string; items: (string | { text: string; sub: string[] })[] }[] = [
   {
@@ -289,6 +290,55 @@ export default function HomePage() {
               Free HOMA Test Info →
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* ── FRANCHISE APPLICATION FORM ── */}
+      <section id="apply" className="bg-[#f0faf4] px-4 py-16 sm:px-6">
+        <div className="mx-auto max-w-3xl">
+          {/* Header */}
+          <div className="mb-10 text-center">
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#1B6B45] px-4 py-2 text-sm font-bold text-white">
+              🏥 Own a HOMA Clinic — Apply Now
+            </div>
+            <h2 className="mb-3 text-3xl font-black text-gray-900 sm:text-4xl">
+              Build Your Own Clinic.
+              <br />
+              <span className="text-[#1B6B45]">Own Your Career.</span>
+            </h2>
+            <p className="mx-auto max-w-xl text-gray-500">
+              ₹5,00,000 total investment · 21 days to first patient · ₹1.5L+ net profit by Month 5.
+              Apply below — our team will call you within 24 hours.
+            </p>
+          </div>
+
+          {/* What you get — quick bullets */}
+          <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {[
+              ["🧪", "Metric Explorer Software"],
+              ["🏷️", "HOMA Brand & Signage"],
+              ["🎓", "3-Day Clinical Training"],
+              ["🔁", "Monthly Zoom CME"],
+            ].map(([icon, label]) => (
+              <div
+                key={label as string}
+                className="rounded-xl border border-green-100 bg-white p-3 text-center shadow-sm"
+              >
+                <div className="text-xl">{icon}</div>
+                <div className="mt-1 text-xs font-semibold text-gray-700">{label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* The form */}
+          <div className="rounded-2xl border border-green-100 bg-white p-8 shadow-lg">
+            <FranchiseApplyForm />
+          </div>
+
+          {/* Trust line */}
+          <p className="mt-6 text-center text-sm text-gray-400">
+            Already running: Dr. Vamsee Krishna (Leela Hospital) · Dr. Basavaraj (Maruthi Hospital) · and more joining every month.
+          </p>
         </div>
       </section>
     </main>
