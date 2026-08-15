@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Awards & Achievements — Dr. Muddu Surendra Nehru MD</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --green: #1B6B45; --green-light: #f0faf4; --gold: #D4AF37; --muted: #6b7280; --border: #e5e7eb; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1a1a1a; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: white; border-bottom: 1px solid var(--border);
+      padding: 0 24px; display: flex; align-items: center; justify-content: space-between;
+      height: 64px; box-shadow: 0 1px 8px rgba(0,0,0,.06);
+    }
+    .nav-logo { font-size: 1.3rem; font-weight: 900; color: var(--green); }
+    .nav-back { color: var(--green); font-weight: 700; font-size: .9rem; }
+
+    .hero {
+      background: linear-gradient(135deg, #3d2a00, #8a6000, #D4AF37);
+      color: white; padding: 72px 24px; text-align: center;
+    }
+    .hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; margin-bottom: 12px; }
+    .hero p { opacity: .85; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+    section { padding: 64px 24px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      display: inline-block; background: #fffbeb; color: #92400e;
+      border-radius: 999px; padding: 4px 14px; font-size: .8rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .5px; margin-bottom: 12px;
+    }
+    h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 900; margin-bottom: 16px; }
+
+    /* CERT GRID */
+    .cert-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); margin-top: 32px; }
+    .cert-card {
+      border-radius: 20px; overflow: hidden; border: 2px solid var(--border);
+      box-shadow: 0 2px 12px rgba(0,0,0,.06); transition: border-color .2s, transform .2s;
+      background: white;
+    }
+    .cert-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+    .cert-img-area {
+      aspect-ratio: 4/3; background: linear-gradient(135deg, #fffbeb, #fef3c7);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 20px; cursor: pointer;
+    }
+    .cert-img-area img { width: 100%; height: 100%; object-fit: cover; }
+    .cert-icon { font-size: 3rem; margin-bottom: 8px; }
+    .cert-placeholder-text { font-size: .82rem; color: #92400e; text-align: center; }
+    .cert-info { padding: 16px 20px; }
+    .cert-title { font-weight: 800; margin-bottom: 4px; font-size: .95rem; }
+    .cert-issuer { font-size: .83rem; color: var(--muted); }
+    .cert-year { font-size: .8rem; color: var(--gold); font-weight: 700; margin-top: 4px; }
+
+    /* TIMELINE */
+    .timeline-section { background: var(--green-light); }
+    .timeline { position: relative; margin-top: 40px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 20px; top: 0; bottom: 0;
+      width: 3px; background: var(--green); border-radius: 2px;
+    }
+    .tl-item { display: flex; gap: 24px; margin-bottom: 32px; position: relative; }
+    .tl-dot {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0; z-index: 1;
+    }
+    .tl-content { background: white; border-radius: 16px; padding: 18px 20px; flex: 1; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    .tl-year { font-size: .8rem; font-weight: 700; color: var(--green); margin-bottom: 4px; }
+    .tl-title { font-weight: 800; margin-bottom: 4px; }
+    .tl-desc { font-size: .88rem; color: var(--muted); }
+
+    /* PAPERS */
+    .papers { background: white; }
+    .paper-list { display: flex; flex-direction: column; gap: 20px; margin-top: 32px; }
+    .paper-card {
+      border: 2px solid var(--border); border-radius: 16px; padding: 24px;
+      display: flex; gap: 16px; align-items: flex-start;
+      transition: border-color .2s;
+    }
+    .paper-card:hover { border-color: var(--green); }
+    .paper-num { font-size: 2rem; font-weight: 900; color: var(--green); flex-shrink: 0; line-height: 1; }
+    .paper-title { font-weight: 800; margin-bottom: 6px; }
+    .paper-journal { font-size: .88rem; color: var(--muted); margin-bottom: 4px; }
+    .paper-year { font-size: .82rem; font-weight: 700; color: var(--green); }
+
+    /* STATS BAR */
+    .stats-bar { background: var(--green); color: white; padding: 40px 24px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 24px; max-width: 900px; margin: 0 auto; text-align: center; }
+    .stat-val { font-size: 2.5rem; font-weight: 900; }
+    .stat-label { font-size: .85rem; opacity: .8; margin-top: 4px; }
+
+    .cta-section { background: #0a3d26; color: white; text-align: center; padding: 56px 24px; }
+    .cta-section h2 { font-size: 1.8rem; font-weight: 900; margin-bottom: 12px; }
+    .cta-section p { opacity: .8; margin-bottom: 24px; }
+    .btn-white { background: white; color: var(--green); padding: 14px 36px; border-radius: 999px; font-weight: 800; font-size: 1rem; display: inline-block; }
+
+    .wa-float {
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #25D366; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,.25); transition: transform .2s;
+    }
+    .wa-float:hover { transform: scale(1.1); }
+    .wa-float svg { width: 30px; height: 30px; fill: white; }
+
+    footer { background: #0a3d26; color: white; padding: 32px 24px; text-align: center; font-size: .88rem; opacity: .7; }
+
+    .add-note {
+      background: #fffbeb; border: 2px dashed #fcd34d; border-radius: 16px;
+      padding: 20px 24px; margin-top: 24px; font-size: .88rem; color: #92400e;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">🏥 HOMA Health Care</div>
+  <a href="index.html" class="nav-back">← Back to Investor Portal</a>
+</nav>
+
+<div class="hero">
+  <h1>🏅 32 Years of Recognition</h1>
+  <p>National awards, gold medals, government certificates, international publications. Every achievement earned in the clinic, not the boardroom.</p>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-grid">
+    <div><div class="stat-val">32</div><div class="stat-label">Years Experience</div></div>
+    <div><div class="stat-val">6+</div><div class="stat-label">Best Doctor Awards</div></div>
+    <div><div class="stat-val">3</div><div class="stat-label">Indexed Papers</div></div>
+    <div><div class="stat-val">8</div><div class="stat-label">Books Published</div></div>
+    <div><div class="stat-val">2,500+</div><div class="stat-label">Doctor Followers</div></div>
+  </div>
+</div>
+
+
+<!-- GOVERNMENT RECOGNITION HIGHLIGHT -->
+<section style="background: linear-gradient(135deg, #0f2942 0%, #1a3a5c 100%); padding: 56px 24px; color: white;">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:36px;">
+      <div style="display:inline-block; background:rgba(255,215,0,.15); border:1px solid rgba(255,215,0,.4); border-radius:999px; padding:6px 20px; font-size:.8rem; font-weight:700; color:#ffd700; letter-spacing:.08em; margin-bottom:16px;">🏛️ GOVERNMENT OF TELANGANA</div>
+      <h2 style="font-size:2rem; font-weight:900; margin-bottom:12px; color:white;">Recognised by the Hon'ble IT Minister</h2>
+      <p style="opacity:.75; max-width:560px; margin:0 auto;">Dr. Surendra's book <em>'BP: The Untold Truth'</em> was inaugurated with appreciation from Shri Duddilla Sridhar Babu, Minister for IT, Electronics &amp; Communications, Industries &amp; Commerce and Legislative Affairs, Government of Telangana.</p>
+    </div>
+    <div style="max-width:620px; margin:0 auto; border-radius:20px; overflow:hidden; box-shadow:0 24px 64px rgba(0,0,0,.5); border:2px solid rgba(255,215,0,.3);">
+      <img src="https://res.cloudinary.com/drhsco04l/image/upload/v1786772222/3HGUp_wanclg.jpg" alt="Dr. Muddu Surendra Nehru with Hon. Minister Duddilla Sridhar Babu — Book Inauguration BP: The Untold Truth" style="width:100%; display:block;" />
+    </div>
+    <div style="max-width:620px; margin:24px auto 0; display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; text-align:center;">
+      <div style="background:rgba(255,255,255,.07); border-radius:12px; padding:16px 12px;">
+        <div style="font-size:1.6rem; font-weight:900; color:#ffd700;">📖</div>
+        <div style="font-weight:700; font-size:.9rem; margin-top:4px;">BP: The Untold Truth</div>
+        <div style="font-size:.75rem; opacity:.6; margin-top:4px;">Published Book</div>
+      </div>
+      <div style="background:rgba(255,255,255,.07); border-radius:12px; padding:16px 12px;">
+        <div style="font-size:1.6rem; font-weight:900; color:#ffd700;">🏛️</div>
+        <div style="font-weight:700; font-size:.9rem; margin-top:4px;">Govt. of Telangana</div>
+        <div style="font-size:.75rem; opacity:.6; margin-top:4px;">State Recognition</div>
+      </div>
+      <div style="background:rgba(255,255,255,.07); border-radius:12px; padding:16px 12px;">
+        <div style="font-size:1.6rem; font-weight:900; color:#ffd700;">🤝</div>
+        <div style="font-weight:700; font-size:.9rem; margin-top:4px;">Minister Duddilla</div>
+        <div style="font-size:.75rem; opacity:.6; margin-top:4px;">IT &amp; Commerce</div>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:20px; opacity:.5; font-size:.78rem; font-style:italic;">With appreciation from Shri Duddilla Sridhar Babu, Hon'ble Minister for IT, Electronics &amp; Communications, Industries &amp; Commerce and Legislative Affairs, Government of Telangana</p>
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section>
+  <div class="container">
+    <div class="section-tag">📜 Certificates & Awards</div>
+    <h2>Government, Medical Body & National Recognition</h2>
+    <p style="color:var(--muted); max-width:640px;">These certificates are from accredited national institutions and government health departments. Originals available on request.</p>
+
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div class="cert-img-area">
+          <!-- Replace with: <img src="cert-dsc.jpg" alt="National DSC Certificate" /> -->
+          <div class="cert-icon">📜</div>
+          <div class="cert-placeholder-text">Add certificate photo here<br/>(Replace this div with &lt;img&gt;)</div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-title">National DSC Certificate</div>
+          <div class="cert-issuer">Diabetes Society of India</div>
+          <div class="cert-year">Upload year</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img-area">
+          <div class="cert-icon">📜</div>
+          <div class="cert-placeholder-text">Add HOMA DMHO Hub certificate photo</div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-title">HOMA DMHO Hub Certificate</div>
+          <div class="cert-issuer">Government Health Department, Telangana</div>
+          <div class="cert-year">Upload year</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img-area">
+          <div class="cert-icon">🥇</div>
+          <div class="cert-placeholder-text">Add Best Diabetologist 2024 award photo</div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-title">Best Diabetologist Award</div>
+          <div class="cert-issuer">National Medical Awards</div>
+          <div class="cert-year">2024</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img-area">
+          <div class="cert-icon">🏆</div>
+          <div class="cert-placeholder-text">Add Best Doctor Award photo</div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-title">Best Doctor Award — 1st</div>
+          <div class="cert-issuer">State & National Level</div>
+          <div class="cert-year">Add year</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img-area">
+          <div class="cert-icon">🏆</div>
+          <div class="cert-placeholder-text">Add Best Doctor Award photo</div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-title">Best Doctor Award — 2nd</div>
+          <div class="cert-issuer">State & National Level</div>
+          <div class="cert-year">Add year</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img-area">
+          <div class="cert-icon">🎖️</div>
+          <div class="cert-placeholder-text">Add Gold Medal photo</div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-title">Gold Medal — Medical Excellence</div>
+          <div class="cert-issuer">Medical Council / Conference</div>
+          <div class="cert-year">Add year</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img-area">
+          <div class="cert-icon">🎖️</div>
+          <div class="cert-placeholder-text">Add 2nd Gold Medal photo</div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-title">Gold Medal — Research</div>
+          <div class="cert-issuer">Add issuing body</div>
+          <div class="cert-year">Add year</div>
+        </div>
+      </div>
+
+      <!-- ADD MORE: Copy a cert-card div and fill in details -->
+      <div class="cert-card" style="border: 2px dashed var(--border); background: #fafafa;">
+        <div class="cert-img-area" style="background: #f9fafb;">
+          <div style="font-size:2.5rem; color:var(--muted);">+</div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-title" style="color:var(--muted);">Add More Certificates</div>
+          <div class="cert-issuer">Copy a card above and add photo + details</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="add-note">
+      💡 <strong>For your tech team:</strong> Upload certificate photos to Cloudinary. Replace each <code>cert-img-area</code> placeholder div with <code>&lt;img src="cloudinary-url" alt="certificate name" /&gt;</code>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="container">
+    <div class="section-tag">📅 Career Milestones</div>
+    <h2>32 Years — Key Milestones</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">🏥</div>
+        <div class="tl-content">
+          <div class="tl-year">1994</div>
+          <div class="tl-title">HOMA Health Care Center Founded</div>
+          <div class="tl-desc">Started with preventive medicine and metabolic testing in Hyderabad.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">📏</div>
+        <div class="tl-content">
+          <div class="tl-year">Early 2000s</div>
+          <div class="tl-title">First in India — Waist Circumference as Risk Factor</div>
+          <div class="tl-desc">Introduced waist measurement as an independent diabetes risk marker before national guidelines recognised it.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🧪</div>
+        <div class="tl-content">
+          <div class="tl-year">First in India</div>
+          <div class="tl-title">5,000 Fasting Insulin Samples Collected</div>
+          <div class="tl-desc">Largest fasting insulin database in India. Basis for AI-powered HOMA Score diagnostics.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🌐</div>
+        <div class="tl-content">
+          <div class="tl-year">First in India</div>
+          <div class="tl-title">HOMA Formula & TYG Index Published Online for All</div>
+          <div class="tl-desc">Democratised insulin resistance testing — made the formula free for every Indian doctor and patient.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🎓</div>
+        <div class="tl-content">
+          <div class="tl-year">Multiple years</div>
+          <div class="tl-title">Chairperson & Speaker — All India Diabetes Conference</div>
+          <div class="tl-desc">12 medical college visits. 2,500+ doctor followers. 1,200+ doctor network built over 32 years.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">📄</div>
+        <div class="tl-content">
+          <div class="tl-year">2026</div>
+          <div class="tl-title">2 International Papers Published in 2026</div>
+          <div class="tl-desc">4 total international peer-reviewed publications. 2026 papers on insulin resistance and the HOMA protocol.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🚀</div>
+        <div class="tl-content">
+          <div class="tl-year">2026</div>
+          <div class="tl-title">HOMA Franchise Platform Launched</div>
+          <div class="tl-desc">First franchise centers live. Dr. Vamsee Krishna (Leela Hospital), Dr. Basavaraj (Maruthi Hospital). 100+ centers planned.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+
+<!-- BHASKAR / DPIIT STARTUP INDIA -->
+<section style="background:#f8f9fa; padding:56px 24px; border-top:1px solid #e5e7eb;">
+  <div class="container">
+    <div style="display:flex; flex-wrap:wrap; gap:32px; align-items:center; justify-content:space-between;">
+      <div style="flex:1; min-width:280px;">
+        <div style="display:inline-block; background:#FF6B35; color:white; border-radius:999px; padding:4px 14px; font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.5px; margin-bottom:14px;">🏛️ DPIIT · Startup India</div>
+        <h2 style="font-size:1.8rem; font-weight:900; margin-bottom:12px;">Registered on BHASKAR</h2>
+        <p style="color:#6b7280; margin-bottom:16px;">HOMA Clinics Private Limited is officially recognised by DPIIT (Dept. for Promotion of Industry and Internal Trade), Government of India under the Startup India initiative.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:12px;">
+          <div style="background:white; border:1px solid #e5e7eb; border-radius:12px; padding:12px 20px;">
+            <div style="font-size:.72rem; color:#6b7280; font-weight:600; text-transform:uppercase; letter-spacing:.5px;">BHASKAR ID</div>
+            <div style="font-size:1.3rem; font-weight:900; color:#0f2942; letter-spacing:.05em; margin-top:2px;">OI-0726-9506QM</div>
+          </div>
+          <div style="background:white; border:1px solid #e5e7eb; border-radius:12px; padding:12px 20px;">
+            <div style="font-size:.72rem; color:#6b7280; font-weight:600; text-transform:uppercase; letter-spacing:.5px;">Company</div>
+            <div style="font-size:.9rem; font-weight:800; color:#0f2942; margin-top:2px;">HOMA CLINICS PRIVATE LIMITED</div>
+          </div>
+          <div style="background:white; border:1px solid #e5e7eb; border-radius:12px; padding:12px 20px;">
+            <div style="font-size:.72rem; color:#6b7280; font-weight:600; text-transform:uppercase; letter-spacing:.5px;">Headquarters</div>
+            <div style="font-size:.9rem; font-weight:800; color:#0f2942; margin-top:2px;">Telangana, India</div>
+          </div>
+        </div>
+      </div>
+      <div style="flex-shrink:0; text-align:center; background:white; border-radius:20px; padding:32px 40px; box-shadow:0 4px 24px rgba(0,0,0,.08); border:1px solid #e5e7eb;">
+        <div style="font-size:3.5rem;">🇮🇳</div>
+        <div style="font-weight:900; font-size:1.1rem; color:#0f2942; margin-top:8px;">Startup India</div>
+        <div style="font-size:.82rem; color:#6b7280; margin-top:4px;">DPIIT Recognised</div>
+        <div style="margin-top:12px; font-size:.75rem; background:#f0fdf4; color:#1B6B45; padding:6px 12px; border-radius:8px; font-weight:700;">Profile: 95% Complete</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK SECTION -->
+<section style="background:white; padding:56px 24px;">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:36px;">
+      <div style="display:inline-block; background:#f0fdf4; color:#1B6B45; border-radius:999px; padding:4px 14px; font-size:.8rem; font-weight:700; text-transform:uppercase; letter-spacing:.5px; margin-bottom:12px;">📚 Published Books</div>
+      <h2 style="font-size:2rem; font-weight:900;">8 Books. Zero Pharma Money.</h2>
+      <p style="color:#6b7280; max-width:560px; margin:0 auto; margin-top:8px;">Peer-reviewed research turned into accessible books — for doctors and patients alike. No pharmaceutical sponsorship, no ghost-writers.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; max-width:900px; margin:0 auto;">
+      <!-- Book 1 - India -->
+      <div style="background:linear-gradient(135deg,#0f2942,#1a3a5c); border-radius:20px; padding:28px; color:white; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:-20px; right:-20px; font-size:6rem; opacity:.07;">📖</div>
+        <div style="font-size:.72rem; font-weight:700; color:#ffd700; letter-spacing:.08em; text-transform:uppercase; margin-bottom:10px;">ब्लड प्रेशर का असली सच · For Indian Doctors</div>
+        <div style="font-size:1.3rem; font-weight:900; margin-bottom:6px;">BP: The Untold Truth</div>
+        <div style="font-size:.85rem; opacity:.8; margin-bottom:4px;">Why Your Blood Pressure Is High When Every Test Says Normal</div>
+        <div style="font-size:.78rem; color:rgba(255,255,255,.6); margin-bottom:16px;">248 Pages · 3 Indexed Papers · RSSDI #8058</div>
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <div style="background:#ffd700; color:#0f2942; padding:6px 14px; border-radius:999px; font-weight:800; font-size:.85rem;">₹399 Kindle</div>
+          <a href="https://amazon.in/dp/B0H23M9VPF" target="_blank" rel="noopener" style="background:rgba(255,255,255,.15); color:white; padding:6px 14px; border-radius:999px; font-weight:600; font-size:.82rem; border:1px solid rgba(255,255,255,.3);">Buy on Amazon India →</a>
+        </div>
+        <div style="margin-top:10px; font-size:.72rem; opacity:.5;">amazon.in/dp/B0H23M9VPF</div>
+      </div>
+      <!-- Book 1 - USA -->
+      <div style="background:linear-gradient(135deg,#7c2d12,#9a3412); border-radius:20px; padding:28px; color:white; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:-20px; right:-20px; font-size:6rem; opacity:.07;">📖</div>
+        <div style="font-size:.72rem; font-weight:700; color:#fbbf24; letter-spacing:.08em; text-transform:uppercase; margin-bottom:10px;">For Our USA Colleagues · Kindle · Available Now</div>
+        <div style="font-size:1.3rem; font-weight:900; margin-bottom:6px;">BP: The Untold Truth</div>
+        <div style="font-size:.85rem; opacity:.8; margin-bottom:4px;">Why Your Blood Pressure Is High When Every Test Says Normal</div>
+        <div style="font-size:.78rem; color:rgba(255,255,255,.6); margin-bottom:16px;">248 Pages · Published: IJM 2026 · IJCPR 2026</div>
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <div style="background:#fbbf24; color:#7c2d12; padding:6px 14px; border-radius:999px; font-weight:800; font-size:.85rem;">$12 Kindle</div>
+          <a href="https://amazon.com/dp/B0H2RLJKV2" target="_blank" rel="noopener" style="background:rgba(255,255,255,.15); color:white; padding:6px 14px; border-radius:999px; font-weight:600; font-size:.82rem; border:1px solid rgba(255,255,255,.3);">Buy on Amazon US →</a>
+        </div>
+        <div style="margin-top:10px; font-size:.72rem; opacity:.5;">amazon.com/dp/B0H2RLJKV2</div>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:24px; color:#6b7280; font-size:.85rem;">
+      🔬 <strong>American cardiology forgot to write this chapter.</strong> — Insulin Resistance driving hypertension, never in JNC guidelines. HOMA-IR not on any standard US BP workup.
+    </p>
+  </div>
+</section>
+
+<section class="papers">
+  <div class="container">
+    <div class="section-tag">📚 International Publications</div>
+    <h2>Peer-Reviewed Research</h2>
+    <p style="color:var(--muted); max-width:640px;">These papers validate the clinical protocols behind every HOMA franchise. Not marketing — published science.</p>
+    <div class="paper-list">
+      <div class="paper-card">
+        <div class="paper-num">01</div>
+        <div>
+          <div class="paper-title">TyG Index as a Surrogate Marker for Insulin Resistance</div>
+          <div class="paper-journal">International Journal of Medicine · IJM Open Access · MNR Medical College, Hyderabad</div>
+          <div class="paper-year">2026 · Vol 8(2):977–983 · DOI: 10.61336/im/26-2-12</div>
+          <div class="paper-journal" style="margin-top:4px;">Sathyanarayana EV, Reddy BL, Ram YS, <strong>Nehru MS</strong>, Krishna PV, Subbareddy VV</div>
+        </div>
+      </div>
+      <div class="paper-card">
+        <div class="paper-num">02</div>
+        <div>
+          <div class="paper-title">Evaluation of Biochemical and Anthropometric Parameters Associated with Insulin Resistance Using TyG Index</div>
+          <div class="paper-journal">International Journal of Medicine · IJM Open Access · MNR Medical College &amp; Mamata Academy, Hyderabad</div>
+          <div class="paper-year">2026 · Vol 8(5):977–983 · DOI: 10.61336/im/26-2-12 · Published: 21 May 2026</div>
+          <div class="paper-journal" style="margin-top:4px;">Sathyanarayana EV, Reddy BL, Ram YS, <strong>Nehru MS</strong>, Krishna PV, Subbareddy VV</div>
+        </div>
+      </div>
+      <div class="paper-card">
+        <div class="paper-num">03</div>
+        <div>
+          <div class="paper-title">Role of HOMA-IR in Early Detection of Insulin Resistance in Non-Diabetic Adults</div>
+          <div class="paper-journal">International Journal of Medicine · HOMA Healthcare Center, Hyderabad</div>
+          <div class="paper-year">2026 · Nehru MS et al.</div>
+        </div>
+      </div>
+      <div class="paper-card">
+        <div class="paper-num">04</div>
+        <div>
+          <div class="paper-title">Waist Circumference as an Independent Predictor of Insulin Resistance in Indian Adults</div>
+          <div class="paper-journal">International Journal of Medicine · HOMA Healthcare Center, Hyderabad</div>
+          <div class="paper-year">2026 · Nehru MS et al. · Based on 5,000+ fasting insulin samples over 32 years</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Convinced? Let's Talk.</h2>
+    <p>32 years of clinical validation, national recognition, and published science — now scaling through franchises.</p>
+    <a href="index.html#contact" class="btn-white">Register Your Interest →</a>
+  </div>
+</section>
+
+<footer>
+  © 2026 HOMA Health Care Center · Dr. Muddu Surendra Nehru MD · Hyderabad, India
+</footer>
+
+<a class="wa-float" href="https://wa.me/919963721999?text=Hi%20Dr.%20Surendra%2C%20I%20saw%20your%20achievements%20and%20want%20to%20discuss%20investment" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.469 2.027 7.773L0 32l8.489-2.004A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.27 13.27 0 01-6.773-1.853l-.486-.29-5.037 1.188 1.21-4.909-.317-.504A13.267 13.267 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.274-9.874c-.398-.199-2.354-1.162-2.719-1.295-.365-.133-.631-.199-.897.199-.266.398-1.031 1.295-1.264 1.561-.233.266-.465.299-.863.1-.398-.199-1.681-.62-3.2-1.977-1.183-1.056-1.981-2.361-2.214-2.759-.233-.398-.025-.613.175-.811.18-.179.398-.465.597-.698.199-.233.266-.398.398-.664.133-.266.067-.498-.033-.697-.1-.199-.897-2.162-1.229-2.96-.324-.778-.653-.673-.897-.685l-.764-.013c-.266 0-.698.1-1.063.498-.365.398-1.396 1.362-1.396 3.322s1.429 3.854 1.628 4.12c.199.266 2.813 4.295 6.815 6.025.953.411 1.696.657 2.275.841.956.304 1.826.261 2.514.158.767-.114 2.354-.962 2.686-1.891.333-.929.333-1.725.233-1.891-.1-.166-.365-.266-.764-.465z"/></svg>
+</a>
+
+</body>
+</html>
