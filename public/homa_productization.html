@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HOMA — How We Productize</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Calibri', Arial, sans-serif; background: #f9fafb; color: #111827; }
+  .page { max-width: 960px; margin: 0 auto; padding: 48px 32px; }
+
+  .header { text-align: center; margin-bottom: 48px; }
+  .header .badge { display: inline-block; background: #1B6B45; color: white; border-radius: 999px; padding: 5px 18px; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+  .header h1 { font-size: 2rem; font-weight: 900; color: #0f2942; margin-bottom: 8px; }
+  .header p { color: #6b7280; font-size: 1rem; max-width: 580px; margin: 0 auto; }
+
+  /* Assembly line */
+  .pipeline { display: flex; align-items: stretch; gap: 0; margin-bottom: 48px; overflow-x: auto; }
+  .step { flex: 1; min-width: 140px; background: white; border: 1px solid #e5e7eb; border-right: none; padding: 24px 16px; text-align: center; position: relative; }
+  .step:last-child { border-right: 1px solid #e5e7eb; border-radius: 0 12px 12px 0; }
+  .step:first-child { border-radius: 12px 0 0 12px; }
+  .step::after { content: '→'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%); font-size: 1.2rem; color: #D4AF37; font-weight: 900; z-index: 2; background: #f9fafb; padding: 2px 0; }
+  .step:last-child::after { display: none; }
+  .step-num { width: 36px; height: 36px; border-radius: 50%; background: #0f2942; color: #D4AF37; font-weight: 900; font-size: 1rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; }
+  .step-title { font-weight: 800; font-size: .85rem; color: #0f2942; margin-bottom: 6px; line-height: 1.3; }
+  .step-desc { font-size: .72rem; color: #6b7280; line-height: 1.5; }
+  .step-tag { display: inline-block; background: #f0fdf4; color: #1B6B45; border-radius: 999px; padding: 2px 10px; font-size: .65rem; font-weight: 700; margin-top: 8px; }
+
+  /* Why this is a product */
+  .product-box { background: #0f2942; color: white; border-radius: 16px; padding: 32px; margin-bottom: 36px; }
+  .product-box h2 { font-size: 1.2rem; font-weight: 900; color: #D4AF37; margin-bottom: 20px; }
+  .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .product-item { display: flex; gap: 12px; align-items: flex-start; }
+  .product-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .product-item strong { display: block; font-size: .9rem; color: #D4AF37; margin-bottom: 3px; }
+  .product-item p { font-size: .78rem; opacity: .8; line-height: 1.5; }
+
+  /* Comparison */
+  .compare { margin-bottom: 36px; }
+  .compare h2 { font-size: 1.1rem; font-weight: 800; color: #0f2942; margin-bottom: 16px; }
+  .compare-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  .compare-table th { background: #0f2942; color: white; padding: 10px 14px; text-align: left; }
+  .compare-table th:first-child { border-radius: 8px 0 0 0; }
+  .compare-table th:last-child { border-radius: 0 8px 0 0; }
+  .compare-table td { padding: 10px 14px; border-bottom: 1px solid #e5e7eb; background: white; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:last-child td:first-child { border-radius: 0 0 0 8px; }
+  .compare-table tr:last-child td:last-child { border-radius: 0 0 8px 0; }
+  .homa-row td { background: #f0fdf4; font-weight: 700; }
+  .check { color: #1B6B45; font-weight: 900; }
+  .cross { color: #ef4444; }
+  .partial { color: #f59e0b; }
+
+  /* Scale */
+  .scale { background: #fefce8; border: 1px solid #fde68a; border-radius: 16px; padding: 28px 32px; margin-bottom: 36px; }
+  .scale h2 { font-size: 1.1rem; font-weight: 800; color: #92400e; margin-bottom: 16px; }
+  .scale-steps { display: flex; gap: 24px; flex-wrap: wrap; }
+  .scale-item { flex: 1; min-width: 160px; }
+  .scale-item .year { font-size: .7rem; font-weight: 700; color: #92400e; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
+  .scale-item .clinics { font-size: 1.5rem; font-weight: 900; color: #0f2942; }
+  .scale-item .detail { font-size: .75rem; color: #6b7280; margin-top: 2px; }
+  .arrow-right { font-size: 1.5rem; color: #D4AF37; align-self: center; }
+
+  /* Moat */
+  .moat { background: white; border: 2px solid #D4AF37; border-radius: 16px; padding: 28px 32px; }
+  .moat h2 { font-size: 1.1rem; font-weight: 800; color: #0f2942; margin-bottom: 6px; }
+  .moat .sub { font-size: .82rem; color: #6b7280; margin-bottom: 16px; }
+  .moat-items { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .moat-item { display: flex; gap: 10px; align-items: flex-start; font-size: .82rem; }
+  .moat-item .dot { width: 8px; height: 8px; border-radius: 50%; background: #D4AF37; flex-shrink: 0; margin-top: 5px; }
+
+  @media (max-width: 640px) {
+    .pipeline { flex-direction: column; }
+    .step { border-right: 1px solid #e5e7eb; border-bottom: none; border-radius: 0; }
+    .step:first-child { border-radius: 12px 12px 0 0; }
+    .step:last-child { border-radius: 0 0 12px 12px; border-bottom: 1px solid #e5e7eb; }
+    .step::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -14px; transform: translateX(-50%); }
+    .product-grid { grid-template-columns: 1fr; }
+    .moat-items { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="badge">Investor Brief — Productization</div>
+    <h1>How HOMA Becomes a Product,<br/>Not Just a Clinic</h1>
+    <p>The same way Ford standardized the car — HOMA standardizes metabolic reversal so any trained franchise doctor delivers the same outcome, every time.</p>
+  </div>
+
+  <!-- Two Legs -->
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px;">
+    <div style="background:#0f2942; border-radius:16px; padding:28px; text-align:center;">
+      <div style="font-size:2rem; margin-bottom:10px;">💊</div>
+      <div style="color:#D4AF37; font-weight:900; font-size:1rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Leg 1 — Pharmacotherapy</div>
+      <div style="color:rgba(255,255,255,.8); font-size:.82rem; line-height:1.6;">Doctor-prescribed medicines and supplements, personalised by metabolic subtype. Because HOMA franchise owners are licensed MDs — not coaches, not apps. Full prescription rights. Every time.</div>
+    </div>
+    <div style="background:#1B6B45; border-radius:16px; padding:28px; text-align:center; position:relative; overflow:hidden;">
+      <div style="position:absolute; top:10px; right:14px; background:#D4AF37; color:#0a0a0a; border-radius:999px; padding:3px 12px; font-size:.65rem; font-weight:900; text-transform:uppercase; letter-spacing:.5px;">First in India</div>
+      <div style="font-size:2rem; margin-bottom:10px;">🥗🏃‍♂️😴</div>
+      <div style="color:#D4AF37; font-weight:900; font-size:1rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Leg 2 — Lifestyle Integration</div>
+      <div style="color:rgba(255,255,255,.85); font-size:.82rem; line-height:1.6;">Diet + Exercise Protocol + Sleep + Lifestyle Management — all four, in one integrated system. Standardised, software-driven, delivered at franchise scale. No one in India does this as a product.</div>
+    </div>
+  </div>
+
+  <div style="background:#fef3c7; border:1px solid #fde68a; border-radius:12px; padding:16px 24px; margin-bottom:36px; text-align:center; font-size:.9rem; color:#92400e; font-weight:700;">
+    Every diabetes protocol in India treats one leg. HOMA is the only system treating both — simultaneously, through trained franchise doctors, at scale.
+  </div>
+
+  <!-- Assembly Line -->
+  <div class="pipeline">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Patient Intake</div>
+      <div class="step-desc">Walk-in or DDD home visit. Vitals + family history collected.</div>
+      <div class="step-tag">Standardised form</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Metabolic Analyser</div>
+      <div class="step-desc">HOMA-IR + TyG Index + lipid profile. Software outputs metabolic score & subtype.</div>
+      <div class="step-tag">Proprietary software</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Diet + Exercise + Sleep</div>
+      <div class="step-desc">30-day diet, exercise protocol & sleep/lifestyle plan — software-generated by subtype. Leg 2.</div>
+      <div class="step-tag" style="background:#f0fdf4; color:#1B6B45;">First in India</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-title">Medicine & Supplements</div>
+      <div class="step-desc">Doctor prescribes HOMA protocol — same logic, every clinic. Full Rx rights. Leg 1.</div>
+      <div class="step-tag">Doctor-led moat</div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-title">Follow-Up Loop</div>
+      <div class="step-desc">Digital tracking. Outcomes feed back into the system. Gets smarter at scale.</div>
+      <div class="step-tag">Data flywheel</div>
+    </div>
+  </div>
+
+  <!-- Why it's a product -->
+  <div class="product-box">
+    <h2>Why This Is a Product, Not a Person</h2>
+    <div class="product-grid">
+      <div class="product-item">
+        <div class="product-icon">🔬</div>
+        <div><strong>The protocol is the IP</strong><p>Dr. Nehru encoded 32 years of Indian patient data into software. The doctor runs the protocol — not their own judgment.</p></div>
+      </div>
+      <div class="product-item">
+        <div class="product-icon">🏭</div>
+        <div><strong>Any trained doctor, same outcome</strong><p>Like McDonald's — the burger is the same whether made in Mumbai or Kurnool. HOMA trains franchise doctors in 4 weeks to deliver identically.</p></div>
+      </div>
+      <div class="product-item">
+        <div class="product-icon">📊</div>
+        <div><strong>Software does the thinking</strong><p>Metabolic Analyser removes subjectivity. Input the numbers — get the subtype, the diet, the protocol. No senior doctor needed in the room.</p></div>
+      </div>
+      <div class="product-item">
+        <div class="product-icon">🔁</div>
+        <div><strong>Data flywheel builds the moat</strong><p>Every patient adds to 32 subtypes dataset. More clinics → more data → better outcomes → stronger protocol. Competitors can't replicate this without 32 years.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitor comparison -->
+  <div class="compare">
+    <h2>Who Else Is Doing This? — And Why HOMA Wins</h2>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Country</th>
+          <th>Doctor-led</th>
+          <th>Biomarker Protocol</th>
+          <th>Franchise Model</th>
+          <th>Prescription Rights</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Twin Health</td>
+          <td>USA/India</td>
+          <td><span class="cross">✗ App only</span></td>
+          <td><span class="partial">~ Wearables</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Sugar.fit</td>
+          <td>India</td>
+          <td><span class="cross">✗ Coaches</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Freedom from Diabetes</td>
+          <td>India</td>
+          <td><span class="partial">~ Lifestyle camps</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="partial">~ Limited</span></td>
+        </tr>
+        <tr>
+          <td>China Integrated Care</td>
+          <td>China</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="partial">~ Hospital-only</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr class="homa-row">
+          <td>🟢 HOMA Health Care</td>
+          <td>India</td>
+          <td><span class="check">✓ MD-led</span></td>
+          <td><span class="check">✓ HOMA-IR + TyG</span></td>
+          <td><span class="check">✓ Live &amp; scaling</span></td>
+          <td><span class="check">✓ Full Rx rights</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Scale path -->
+  <div class="scale">
+    <h2>📈 The Scale Path — Same Protocol, More Factories</h2>
+    <div class="scale-steps">
+      <div class="scale-item">
+        <div class="year">Now — 2026</div>
+        <div class="clinics">2 → 10</div>
+        <div class="detail">Franchise clinics live. Protocol proven. ₹1Cr funds this phase.</div>
+      </div>
+      <div class="arrow-right">→</div>
+      <div class="scale-item">
+        <div class="year">2027–28</div>
+        <div class="clinics">50</div>
+        <div class="detail">SCCL + NTPC corporate rollout. 1L+ employees screened.</div>
+      </div>
+      <div class="arrow-right">→</div>
+      <div class="scale-item">
+        <div class="year">2029–31</div>
+        <div class="clinics">200</div>
+        <div class="detail">10 states. ₹20 Cr revenue. Government MoU possible.</div>
+      </div>
+      <div class="arrow-right">→</div>
+      <div class="scale-item">
+        <div class="year">2032–36</div>
+        <div class="clinics">500+</div>
+        <div class="detail">₹100 Cr. International expansion. IPO ready.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Moat -->
+  <div class="moat">
+    <h2>The Moat No Competitor Can Buy</h2>
+    <div class="sub">Twin Health raised $140M and still cannot do what HOMA does — because you cannot buy 32 years of Indian clinical data.</div>
+    <div class="moat-items">
+      <div class="moat-item"><div class="dot"></div><div>32 years of Indian patient data across 32 diabetes subtypes — encoded, not in a doctor's head</div></div>
+      <div class="moat-item"><div class="dot"></div><div>HOMA-IR + TyG Index testing — less than 1% of Indian clinics currently run this</div></div>
+      <div class="moat-item"><div class="dot"></div><div>9 published books + 3 indexed papers — the science is verifiable, not a claim</div></div>
+      <div class="moat-item"><div class="dot"></div><div>Franchise doctors trained in 4 weeks — replicable without Dr. Nehru in the room</div></div>
+      <div class="moat-item"><div class="dot"></div><div>DDD (Door to Door Diabetes) — first home-visit MD-led metabolic reversal in India</div></div>
+      <div class="moat-item"><div class="dot"></div><div>DPIIT Startup India recognised — government-backed, investor-trusted</div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
