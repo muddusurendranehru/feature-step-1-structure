@@ -16,6 +16,7 @@ const navLinks = [
   { label: "Community", href: "/community" },
   { label: "Investors", href: "/homa_productization.html" },
   { label: "Patients", href: "/homa_patient.html" },
+  { label: "Achievements", href: "/achievements.html" },
   { label: "Medical Camps", href: "/medical-camps" },
   { label: "Donations", href: "/donations" },
   { label: "Join us", href: "/join-us" },
