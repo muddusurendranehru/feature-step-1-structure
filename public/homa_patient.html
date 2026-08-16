@@ -110,20 +110,100 @@
   .btn-dark { background: #0f2942; color: #D4AF37; font-weight: 900; font-size: .95rem; padding: 16px 36px; border-radius: 999px; text-decoration: none; }
   .btn-wa { background: #25D366; color: white; font-weight: 900; font-size: .95rem; padding: 16px 36px; border-radius: 999px; text-decoration: none; }
 
+  /* CONTACT FORM */
+  .contact { background: #f9fafb; padding: 60px 24px; }
+  .contact-inner { max-width: 640px; margin: 0 auto; }
+  .contact h2 { font-size: 1.6rem; font-weight: 900; color: #0f2942; margin-bottom: 8px; text-align: center; }
+  .contact .con-sub { text-align: center; color: #6b7280; font-size: .9rem; margin-bottom: 32px; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-group label { font-size: .82rem; font-weight: 700; color: #374151; }
+  .form-group input, .form-group select, .form-group textarea {
+    border: 1.5px solid #e5e7eb; border-radius: 10px; padding: 12px 14px;
+    font-size: .9rem; font-family: inherit; color: #111827; background: white;
+    outline: none; transition: border .2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #0f2942; }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .form-submit { width: 100%; padding: 16px; background: #0f2942; color: #D4AF37;
+    font-weight: 900; font-size: 1rem; border: none; border-radius: 999px;
+    cursor: pointer; margin-top: 8px; font-family: inherit; }
+  .form-submit:hover { background: #1a3a5c; }
+  .form-wa { display: flex; align-items: center; justify-content: center; gap: 10px;
+    margin-top: 14px; text-align: center; font-size: .85rem; color: #6b7280; }
+  .form-wa a { color: #25D366; font-weight: 700; text-decoration: none; }
+
+  /* FLOATING WHATSAPP */
+  .wa-float {
+    position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+    width: 60px; height: 60px; background: #25D366; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,.5);
+    text-decoration: none; transition: transform .2s;
+  }
+  .wa-float:hover { transform: scale(1.1); }
+  .wa-float svg { width: 32px; height: 32px; fill: white; }
+  .wa-tooltip {
+    position: fixed; bottom: 92px; right: 24px; z-index: 9998;
+    background: #0f2942; color: white; font-size: .78rem; font-weight: 700;
+    padding: 8px 14px; border-radius: 10px; white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0,0,0,.2);
+  }
+  .wa-tooltip::after {
+    content: ''; position: absolute; bottom: -6px; right: 22px;
+    border: 6px solid transparent; border-bottom: none;
+    border-top-color: #0f2942;
+  }
+
   /* MOBILE */
   @media (max-width: 640px) {
-    .hero h1 { font-size: 1.5rem; }
+    .hero { padding: 40px 16px 0; }
+    .hero h1 { font-size: 1.45rem; }
+    .hero p { font-size: .9rem; }
     .hero-photo { width: 200px; height: 240px; }
-    .cred-inner { gap: 10px 20px; }
+    .hero-cta { padding: 13px 28px; font-size: .9rem; }
+
+    .cred-inner { gap: 8px 16px; }
+    .cred-item span { font-size: 1.1rem; }
+    .cred-item { font-size: .75rem; }
+
+    .choice { padding: 40px 16px; }
     .choice-grid { grid-template-columns: 1fr; }
+    .choice-header h2 { font-size: 1.3rem; }
+
+    .two-legs-section { padding: 40px 16px; }
+    .two-legs-section h2 { font-size: 1.3rem; }
     .legs-grid { grid-template-columns: 1fr; }
-    .outcomes-grid { grid-template-columns: 1fr 1fr; }
+
+    .how { padding: 40px 16px; }
+    .how h2 { font-size: 1.3rem; }
+    .step-row { padding: 16px; gap: 14px; }
+
+    .outcomes { padding: 40px 16px; }
+    .outcomes h2 { font-size: 1.3rem; }
+    .outcomes-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .outcome-stat .big { font-size: 1.8rem; }
     .cases-grid { grid-template-columns: 1fr; }
+
+    .doctor { padding: 40px 16px; }
     .doctor-inner { grid-template-columns: 1fr; text-align: center; }
     .doctor-photo { height: 220px; width: 180px; margin: 0 auto; display: block; }
     .cred-list li { text-align: left; }
-    .how h2, .outcomes h2, .choice-header h2 { font-size: 1.3rem; }
-    .page-pad { padding: 40px 16px; }
+    .doctor-content h2 { font-size: 1.3rem; }
+
+    .contact { padding: 40px 16px; }
+    .contact h2 { font-size: 1.3rem; }
+    .form-grid { grid-template-columns: 1fr; }
+
+    .cta { padding: 40px 16px; }
+    .cta h2 { font-size: 1.4rem; }
+    .cta-buttons { flex-direction: column; align-items: center; }
+    .btn-dark, .btn-wa { width: 100%; text-align: center; padding: 14px 24px; }
+
+    .wa-float { width: 52px; height: 52px; bottom: 16px; right: 16px; }
+    .wa-float svg { width: 28px; height: 28px; }
+    .wa-tooltip { bottom: 76px; right: 16px; font-size: .72rem; }
   }
 </style>
 </head>
@@ -378,15 +458,82 @@
   </div>
 </section>
 
+<!-- CONTACT FORM -->
+<section class="contact">
+  <div class="contact-inner">
+    <h2>Get in Touch — Free Assessment</h2>
+    <p class="con-sub">Leave your details and a HOMA doctor will call you within 24 hours.</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Your Name *</label>
+        <input type="text" id="f-name" placeholder="Dr. / Mr. / Mrs." required/>
+      </div>
+      <div class="form-group">
+        <label>Phone / WhatsApp *</label>
+        <input type="tel" id="f-phone" placeholder="+91 9XXXXXXXXX" required/>
+      </div>
+      <div class="form-group">
+        <label>City</label>
+        <input type="text" id="f-city" placeholder="Hyderabad, Mumbai..."/>
+      </div>
+      <div class="form-group">
+        <label>I am a</label>
+        <select id="f-type">
+          <option value="patient">Patient / Family</option>
+          <option value="doctor">Doctor (Franchise interest)</option>
+          <option value="investor">Investor</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>Your Question or Concern</label>
+        <textarea id="f-msg" placeholder="e.g. HbA1c is 9.2, been diabetic for 6 years, on 3 medicines..."></textarea>
+      </div>
+    </div>
+    <button class="form-submit" onclick="sendWA()">Send via WhatsApp →</button>
+    <div class="form-wa">
+      Or call / message directly:
+      <a href="https://wa.me/919963721999">+91 99637 21999</a>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta">
   <h2>Ready to Find Your Metabolic Subtype?</h2>
   <p>Book a free HOMA-IR assessment at your nearest franchise clinic — or from home via DDD.</p>
   <div class="cta-buttons">
     <a href="/apply" class="btn-dark">Book Assessment →</a>
-    <a href="https://wa.me/919000000000" class="btn-wa">💬 WhatsApp Us</a>
+    <a href="https://wa.me/919963721999" class="btn-wa">💬 WhatsApp Us</a>
   </div>
 </section>
+
+<!-- FLOATING WHATSAPP -->
+<div class="wa-tooltip">Chat with Dr. Nehru's team</div>
+<a class="wa-float" href="https://wa.me/919963721999?text=Hi%20HOMA%20Health%20Care%2C%20I%20would%20like%20to%20know%20more%20about%20diabetes%20reversal." target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 0C7.163 0 0 7.163 0 16c0 2.824.738 5.476 2.027 7.776L0 32l8.468-2.004A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.27 13.27 0 01-6.77-1.848l-.486-.288-5.026 1.19 1.212-4.897-.317-.503A13.267 13.267 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.27-9.874c-.398-.2-2.355-1.163-2.72-1.295-.366-.133-.632-.2-.899.2-.266.399-1.03 1.295-1.263 1.562-.232.266-.465.3-.863.1-.398-.2-1.68-.619-3.2-1.976-1.183-1.055-1.982-2.358-2.214-2.757-.232-.4-.025-.616.174-.814.179-.178.398-.465.597-.698.2-.232.266-.399.4-.665.132-.267.066-.5-.034-.698-.1-.2-.899-2.168-1.232-2.967-.324-.779-.654-.673-.899-.686l-.765-.013c-.266 0-.698.1-1.064.499-.365.4-1.396 1.363-1.396 3.325 0 1.963 1.43 3.861 1.629 4.127.2.266 2.814 4.298 6.82 6.027.953.412 1.697.657 2.277.841.957.305 1.828.262 2.516.159.767-.115 2.355-.963 2.688-1.894.332-.931.332-1.73.232-1.895-.1-.166-.365-.266-.763-.465z"/>
+  </svg>
+</a>
+
+<script>
+function sendWA() {
+  var name = document.getElementById('f-name').value.trim();
+  var phone = document.getElementById('f-phone').value.trim();
+  var city = document.getElementById('f-city').value.trim();
+  var type = document.getElementById('f-type').value;
+  var msg = document.getElementById('f-msg').value.trim();
+  if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+  var typeLabel = {patient:'Patient/Family', doctor:'Doctor (Franchise)', investor:'Investor', other:'Other'}[type];
+  var text = 'Hi HOMA Health Care! 🙏\n\n'
+    + 'Name: ' + name + '\n'
+    + 'Phone: ' + phone + '\n'
+    + (city ? 'City: ' + city + '\n' : '')
+    + 'I am a: ' + typeLabel + '\n'
+    + (msg ? '\nMessage: ' + msg : '');
+  window.open('https://wa.me/919963721999?text=' + encodeURIComponent(text), '_blank');
+}
+</script>
 
 </body>
 </html>
