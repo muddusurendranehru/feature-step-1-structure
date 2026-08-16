@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,23 +9,21 @@ import {
   SignUpButton,
   UserButton,
 } from "@clerk/nextjs";
-
 const navLinks = [
   { label: "About", href: "/about" },
   { label: "Apps", href: "/apps" },
   { label: "Education", href: "/education" },
   { label: "Community", href: "/community" },
-  { label: "Investors", href: "/investors" },
+  { label: "Investors", href: "/homa_productization.html" },
+  { label: "Patients", href: "/homa_patient.html" },
   { label: "Medical Camps", href: "/medical-camps" },
   { label: "Donations", href: "/donations" },
   { label: "Join us", href: "/join-us" },
 ];
-
 export function NavBar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const redirectUrl = pathname && pathname !== "/" ? pathname : "/medical-camps";
-
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 shadow-sm backdrop-blur-md dark:bg-gray-900/80">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -36,7 +33,6 @@ export function NavBar() {
         >
           HOMA Clinics
         </Link>
-
         {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-1">
           {navLinks.map(({ label, href }) => (
@@ -49,7 +45,6 @@ export function NavBar() {
             </Link>
           ))}
         </nav>
-
         <div className="hidden sm:flex items-center gap-2 sm:gap-3">
           <SignedOut>
             <SignInButton mode="modal" forceRedirectUrl={redirectUrl}>
@@ -79,7 +74,6 @@ export function NavBar() {
             Enroll Now
           </Link>
         </div>
-
         {/* Mobile hamburger */}
         <button
           type="button"
@@ -112,7 +106,6 @@ export function NavBar() {
           </svg>
         </button>
       </div>
-
       {/* Mobile dropdown */}
       <div
         className={`overflow-hidden transition-all duration-300 ease-in-out md:hidden ${
