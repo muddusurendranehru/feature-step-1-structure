@@ -19,7 +19,7 @@ const navLinks = [
   { label: "Achievements", href: "/achievements.html" },
   { label: "Medical Camps", href: "/medical-camps" },
   { label: "Donations", href: "/donations" },
-  { label: "Join us", href: "/join-us" },
+  { label: "Join us", href: "/apply" },
 ];
 export function NavBar() {
   const [mobileOpen, setMobileOpen] = useState(false);
