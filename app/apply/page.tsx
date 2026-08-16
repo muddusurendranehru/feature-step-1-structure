@@ -332,13 +332,15 @@ export default function ApplyPage() {
         )}
 
         {/* Submit */}
-        <button
-          type="submit"
-          disabled={status === "loading" || !form.type || !form.name || !form.phone}
-          className="w-full bg-primary hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3.5 rounded-xl transition-colors text-base"
-        >
-          {status === "loading" ? "Submitting..." : "Submit Application →"}
-        </button>
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            disabled={status === "loading" || !form.type || !form.name || !form.phone}
+            className="bg-green-500 hover:bg-green-600 active:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 px-12 rounded-2xl transition-colors text-lg shadow-lg hover:shadow-xl tracking-wide"
+          >
+            {status === "loading" ? "⏳ Submitting..." : "✅ Submit Application"}
+          </button>
+        </div>
 
         <p className="text-center text-xs text-gray-400">
           Or reach us directly on{" "}
