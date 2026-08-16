@@ -29,26 +29,6 @@ export async function POST(req: NextRequest) {
 
     const sql = neon(process.env.DATABASE_URL!);
 
-    // Create table if it doesn't exist
-    await sql`
-      CREATE TABLE IF NOT EXISTS franchise_applications (
-        id SERIAL PRIMARY KEY,
-        name TEXT NOT NULL,
-        phone TEXT NOT NULL,
-        email TEXT,
-        city TEXT,
-        state TEXT,
-        type TEXT NOT NULL,
-        mci_number TEXT,
-        specialization TEXT,
-        experience_years INTEGER,
-        lab_name TEXT,
-        investment_budget TEXT,
-        message TEXT,
-        created_at TIMESTAMPTZ DEFAULT NOW()
-      )
-    `;
-
     // Insert application
     const result = await sql`
       INSERT INTO franchise_applications
